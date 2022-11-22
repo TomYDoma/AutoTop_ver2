@@ -1,14 +1,29 @@
 {% extends 'home/base.html' %}
 {% block content %}
+
 <h1>Команда администрации</h1>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Имя</th>
+      <th scope="col">Должность</th>
+      <th scope="col">Фотография</th>
+      <th scope="col">О себе</th>
+    </tr>
+  </thead>
 
-  {% for post in object_list %}
-    <div class="post-entry">
-      <h2>{{ post.title }}</h2>
-      <img src="{{ post.image.url}}", style="height: 500px">
-      <h3>{{ post.body }}</h3>
-
-    </div>
+  {% for admin in object_list %}
+  <tbody>
+    <tr>
+      <td>{{forloop.counter}}</td>
+      <td>{{ admin.name }}</td>
+      <td>{{ admin.positions}}</td>
+      <td><img src="{{ admin.image.url}}", style="height: 100px"></td>
+      <td>{{ admin.body }}</td>
+    </tr>
+  </tbody>
   {% endfor %}
+  </table>
 
 {% endblock content %}
