@@ -1,13 +1,16 @@
 from PIL import Image
-from django.shortcuts import render
-from django.views.generic import ListView
+from django.shortcuts import render, redirect
+from django.views.generic import ListView, CreateView
+from .forms import FeedbackListForm
 from django.http import HttpResponse
 
-from .models import SpecialistAdmin
+
+from .models import SpecialistAdmin, SpecialistList, mainCart, FeedbackList
 
 
-def index(request):
-    return render(request, 'home/index.html')
+class mainCart(ListView):
+    model = mainCart
+    template_name = 'home/index.html'
 
 
 def contact(request):
@@ -18,9 +21,10 @@ def services(request):
     return render(request, 'home/services.html')
 
 
-def team_specialist(request):
-    return render(request, 'home/team_specialist.html')
 
+class SmecListView(ListView):
+    model = SpecialistList
+    template_name = 'home/team_specialist.html'
 
 class SmecAdminListView(ListView):
     model = SpecialistAdmin
@@ -29,5 +33,19 @@ class SmecAdminListView(ListView):
 
 
 
+def createFeedback(request):
+    eror = ''
+    if request. method == 'POST':
+        form = FeedbackListForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+        else:
+            eror = 'Форма была неверной'
 
-
+    form = FeedbackListForm()
+    data = {
+        'form': form,
+        'eror': eror
+    }
+    return render(request, 'home/feedback.html', data)

@@ -1,4 +1,41 @@
 {% extends 'home/base.html' %}
+{% load static %}
 {% block content %}
 <h1>Главная</h1>
+
+
+
+<div class="container" >
+  <div class="row align-items-start" >
+    {% for cpec in object_list %}
+        <div class="col" >
+            <div class="card" style="width: 18rem; height: 22rem">
+                <img class="card-img-top" src="{{cpec.image.url}}" alt="Card image cap">
+                    <div class="car d-body">
+                        <h5 class="card-title">{{ cpec.name}}</h5>
+                         <p class="card-text">{{ cpec.body }}</p>
+                     </div>
+            </div>
+        </div>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="textcols">
+	<div class="textcols-row">
+		<div class="textcols-item">
+<h3>Отремонтируем ваш автомобиль быстро и с гарантией</h3><br>
+      <button style="width: 18rem " class="btn btn-dark" onclick="window.location.href='{% url 'feedback_new' %}'" type="button">Заказать звонок</button><br>
+      <p>Мы перезвоним в течение 30 минут</p>
+		</div>
+		<div class="textcols-item">
+            <img src="{% static 'img/ecpmot.jpg' %}" style="height: 18rem">
+		</div>
+	</div>
+</div>
+
+
+
+
+
 {% endblock content %}
