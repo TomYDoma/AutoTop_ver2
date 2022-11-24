@@ -59,7 +59,20 @@
                   <a class="nav-link " aria-current="page" href="">Здравствуйте, {{ user.username }}</a>
                   <button class="btn-close" onclick="window.location.href='{% url 'logout' %}'"></button>
                 {% else %}
-                  <a class="nav-link active underline-one" aria-current="page" href="{% url 'login' %}">Вам нужно войти</a>
+
+
+                  <div class="textcols">
+	                <div class="textcols-row">
+		              <div class="textcols-item">
+                        <a class="nav-link active underline-one" aria-current="page" href="{% url 'login' %}">Войдите</a>
+                      </div>
+		              <div class="textcols-item">
+                        <a class="nav-link active underline-one" aria-current="page" href="{% url 'signup' %}">Зарегистрируйтесь</a>
+                      </div>
+	              </div>
+                  </div>
+
+
                 {% endif %}
               </li>
               </li>
@@ -69,9 +82,6 @@
       </nav>
     </header>
     <div>
-
-
-
       {% block content %}
       {% endblock content %}
     </div>
