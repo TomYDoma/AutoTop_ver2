@@ -1,0 +1,75 @@
+{% extends 'home/base.html' %}
+{% block content %}
+    <div class="container rounded bg-white">
+        <div class="row">
+            <div class="col-md-3 ">
+                <div class="d-flex flex-column align-items-center text-center ">
+
+                    <img class="rounded-circle mt-5" width="150px" height="150px" src="{{ user.profile.avatar.url }}">
+                    <span class="text-black-50">{{user.username}}</span>
+                </div>
+            </div>
+            {% if user_form.errors %}
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <div id="form_errors">
+                        {% for key, value in user_form.errors.items %}
+                            <strong>{{ value }}</strong>
+                        {% endfor %}
+                    </div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+
+            <div class="col-md-5 border-right">
+                <div >
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">Личный кабинет пользователя</h4>
+                    </div>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                            <div class="row mt-3">
+                                <div class="col-md-8">
+                                    <label class="labels">Имя</label>
+                                    {{ user_form.first_name }}
+                                </div>
+                                <div class="col-md-8">
+                                    <label class="labels">Фамилия</label>
+                                    {{ user_form.last_name }}
+                                </div>
+                                <div class="col-md-8">
+                                    <label class="labels">Никнейм</label>
+                                    {{ user_form.username }}
+                                </div>
+                                <div class="col-md-8">
+                                    <label class="labels">Email</label>
+                                    {{ user_form.email }}
+                                </div>
+                                <div class="col-md-8">
+                                    <label class="labels">Телефон</label>
+                                    {{ profile_form.numberPhone }}
+                                </div>
+
+                                <div class="col-md-8">
+                                   <label class="labels">Описание профиля</label>
+                                    {{ profile_form.bio }}
+                                </div>
+                                <div class="col-md-8">
+                                   <label class="labels">Фото профиля</label>
+                                    {{ profile_form.avatar }}
+                                </div>
+                                <div class="col-md-8">
+                                    <button class="btn btn-dark profile-button" type="submit">Сохранить профиль</button>
+                                </div>
+                            </div>
+
+
+
+
+                    </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
