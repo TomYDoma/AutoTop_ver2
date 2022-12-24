@@ -39,7 +39,7 @@ class SpecialistList(models.Model):
     def __str__(self):
         return self.name
 
-
+#Таблица с записями на главной странице
 class mainCart(models.Model):
     name = models.CharField(max_length=200)
     image = models.ImageField(upload_to='images/', null=True, max_length=255)
@@ -55,7 +55,7 @@ class mainCart(models.Model):
     def __str__(self):
         return self.name
 
-
+#Обратная связь
 class FeedbackList(models.Model):
     name = models.CharField(max_length=200, default = None)
     email = models.CharField(max_length=200, default = None)
@@ -63,4 +63,6 @@ class FeedbackList(models.Model):
     date = models.DateTimeField(default=datetime.now())
     def __str__(self):
         return self.name
+
+
 

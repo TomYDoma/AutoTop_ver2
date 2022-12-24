@@ -75,3 +75,23 @@ body {
 	padding: 0;
 
 }
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: rgba(38, 38, 34, 0.83)
+}
+
+.profile-button {
+    background: rgba(38, 38, 34, 0.83);
+    box-shadow: none;
+    border: none
+}
+
+.profile-button:hover {
+    background: #000000
+}
+
+.labels {
+    font-size: 14px
+}
+

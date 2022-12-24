@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views import View
-from django.contrib.auth.views import LoginView, PasswordResetView
+from django.contrib.auth.views import LoginView, PasswordResetView, PasswordChangeView
 from .forms import RegisterForm, LoginForm
 from .forms import UpdateUserForm, UpdateProfileForm
 
@@ -45,7 +45,7 @@ class SignUpView(View):
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
     template_name = 'registration/password_reset.html'
     email_template_name = 'registration/password_reset_email.html'
-    subject_template_name = 'registration/password_reset_subject'
+    subject_template_name = 'registration/password_reset_subject.txt'
     success_message = "We've emailed you instructions for setting your password, " \
                       "if an account exists with the email you entered. You should receive them shortly." \
                       " If you don't receive an email, " \
@@ -61,10 +61,15 @@ def profile(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            messages.success(request, 'Your profile is updated successfully')
+            messages.success(request, 'Ваш профиль успешно изменен')
             return redirect(to='users-profile')
     else:
         user_form = UpdateUserForm(instance=request.user)
         profile_form = UpdateProfileForm(instance=request.user.profile)
 
     return render(request, 'registration/profile.html', {'user_form': user_form, 'profile_form': profile_form})
+
+class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
+    template_name = 'registration/change_password.html'
+    success_message = "Пароль пользователя успешно изменен"
+    success_url = reverse_lazy('home')

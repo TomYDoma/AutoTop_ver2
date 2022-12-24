@@ -20,6 +20,8 @@ def contact(request):
 def services(request):
     return render(request, 'home/services.html')
 
+def useful(request):
+    return render(request, 'home/useful.html')
 
 
 class SmecListView(ListView):
@@ -29,6 +31,8 @@ class SmecListView(ListView):
 class SmecAdminListView(ListView):
     model = SpecialistAdmin
     template_name = 'home/team_admin.html'
+
+
 
 
 

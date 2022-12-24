@@ -2,7 +2,7 @@ from django.urls import path, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
-from .views import (SmecAdminListView, SmecListView, mainCart, createFeedback)
+from .views import (SmecAdminListView, SmecListView, mainCart)
 
 urlpatterns = [
     path('feedback_new', views.createFeedback, name='feedback_new'),
@@ -11,6 +11,7 @@ urlpatterns = [
     path('services', views.services, name="services"),
     path('team_specialist',SmecListView.as_view(), name="team_specialist"),
     path('team_admin', SmecAdminListView.as_view(), name='team_admin'),
+    path('useful', views.useful, name='useful'),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
