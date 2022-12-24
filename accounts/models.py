@@ -22,3 +22,7 @@ class Profile(models.Model):
             new_img = (100, 100)
             img.thumbnail(new_img)
             img.save(self.avatar.path)
+
+    class Meta:
+        verbose_name = 'Дополнение профиля'
+        verbose_name_plural = 'Дополнение профиля'

@@ -12,6 +12,7 @@ urlpatterns = [
     path('team_specialist',SmecListView.as_view(), name="team_specialist"),
     path('team_admin', SmecAdminListView.as_view(), name='team_admin'),
     path('useful', views.useful, name='useful'),
+    path('useful/<int:pk>', views.NewsDetailView.as_view(), name='news-detail')
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

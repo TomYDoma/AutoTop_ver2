@@ -95,3 +95,20 @@ body {
     font-size: 14px
 }
 
+.box {
+   position: relative;
+   overflow:hidden;
+   width:250px;
+   height:250px;
+}
+
+.box img {
+   position: absolute;
+   top:50%;
+   left:50%;
+   transform:translate(-50%,-50%);
+   width:300px;
+   height:300px;
+   object-fit:cover;
+}
+

@@ -1,11 +1,11 @@
 from PIL import Image
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, DetailView
 from .forms import FeedbackListForm
 from django.http import HttpResponse
 
 
-from .models import SpecialistAdmin, SpecialistList, mainCart, FeedbackList
+from .models import SpecialistAdmin, SpecialistList, mainCart, FeedbackList, Articles
 
 
 class mainCart(ListView):
@@ -20,8 +20,15 @@ def contact(request):
 def services(request):
     return render(request, 'home/services.html')
 
+
+class NewsDetailView(DetailView):
+    model = Articles
+    template_name = 'home/detail_news.html'
+    context_object_name = 'article'
+
 def useful(request):
-    return render(request, 'home/useful.html')
+    news = Articles.objects.order_by('-date')
+    return render(request, 'home/useful.html', {'news': news})
 
 
 class SmecListView(ListView):
