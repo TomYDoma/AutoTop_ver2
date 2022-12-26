@@ -1,9 +1,10 @@
 from PIL import Image
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
-from django.views.generic import ListView, CreateView, DetailView
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, DetailView, DeleteView
 from .forms import FeedbackListForm, CommentForm
-from django.http import HttpResponse, response
+
 
 from .models import SpecialistAdmin, SpecialistList, mainCart, FeedbackList, Articles, Comment
 
@@ -20,31 +21,10 @@ def contact(request):
 def services(request):
     return render(request, 'home/services.html')
 
-def createComment(request, pk, *args, **kwargs):
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        current_user = request.user.id
-        article = Articles.objects.get(pk=pk)
-        print(article.id)
-        if form.is_valid():
-            comm = form.save(False)
-            comm.author_id = request.user.id
-            #Эта дура не хочет получать id записи, к которой
-            # нужно оставить комент, поэтому тут заглушка
-            comm.article_id = 1
-            form.save()
-            return redirect('useful')
-        else:
-            eror = 'Форма была неверной'
-    form = CommentForm()
-    data = {
-        'form': form
-    }
-    return render(request, 'home/detail_news.html', data)
 
 class NewsDetailView(DetailView):
     model = Articles
-    form_class = CommentForm
+    form_class = CommentForm()
     template_name = 'home/detail_news.html'
     context_object_name = 'article'
     def get_context_data(self, *args, **kwargs):
@@ -53,6 +33,36 @@ class NewsDetailView(DetailView):
         comm['comments'] = Comment.objects.filter(article=pk)
         return comm
 
+def createComment(request, id):
+    news = Articles.objects.filter(id=id)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        article = Articles.objects.get(pk=id)
+        print(article)
+        if form.is_valid():
+            comm = form.save(False)
+            comm.author_id = request.user.id
+            #Эта дура не хочет получать id записи, к которой
+            # нужно оставить комент, поэтому тут заглушка
+            comm.article_id = article.id
+            form.save()
+            return redirect('news-detail', id)
+        else:
+            eror = 'Форма была неверной'
+    form = CommentForm()
+    data = {
+        'form': form,
+    }
+    return render(request, 'home/new_comment.html', data)
+
+
+#Сейчас пользователь может удалять любой комментарий, нужно поставить запрет на
+# удаление чужих комментов
+
+class BlogDeleteView(DeleteView):
+    model = Comment
+    template_name = 'home/post_delete.html'
+    success_url = reverse_lazy('useful')
 
 
 def useful(request):

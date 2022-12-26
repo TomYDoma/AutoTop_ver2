@@ -2,7 +2,7 @@ from django.urls import path, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
-from .views import (SmecAdminListView, SmecListView, mainCart)
+from .views import (SmecAdminListView, SmecListView, mainCart, BlogDeleteView)
 
 urlpatterns = [
     path('feedback_new', views.createFeedback, name='feedback_new'),
@@ -14,7 +14,8 @@ urlpatterns = [
     path('useful', views.useful, name='useful'),
     path('news_filter/<int:pk>', views.news_filter, name="news_filter"),
     path('useful/<int:pk>', views.NewsDetailView.as_view(), name='news-detail'),
-    path('comment/<int:pk>', views.createComment, name='comment'),
+    path('comment/<int:id>', views.createComment, name='comment'),
+    path('comment/<int:pk>/delete/', BlogDeleteView.as_view(), name='post_delete'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

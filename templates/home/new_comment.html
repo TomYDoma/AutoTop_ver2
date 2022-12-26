@@ -1,0 +1,27 @@
+{% extends 'home/base.html' %}
+{% load define_action %}
+{% block content %}
+
+
+
+    <form   method="post">
+         {% csrf_token %}
+          <div class="mb-3">
+                <label class="form-label">Введите текст комментария</label>
+                {{ form.content }}
+                <div id="emailHelp" class="form-text">Ваш комментарий будет опубликован после нажатия кнопки "Отправить"</div>
+          </div>
+
+
+        <input type="submit" value="Отправить" class="btn btn-dark"/>
+    </form>
+
+
+
+
+
+
+
+
+
+{% endblock content %}

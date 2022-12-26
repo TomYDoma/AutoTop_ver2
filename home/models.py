@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from datetime import datetime, timezone
 from django.db.models import ImageField
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django import forms
 from django.utils.safestring import mark_safe
 
@@ -115,3 +115,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
+
+    def get_absolute_url(self):
+        return reverse("comment", kwargs={"id": self.id})

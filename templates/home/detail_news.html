@@ -1,33 +1,25 @@
 {% extends 'home/base.html' %}
+{% load define_action %}
 {% block content %}
-<h1>{{article.title}}</h1>
+{% define article.id as action %}
 
-
+    <h1>{{ article.title }}</h1>
 <p align="left">{{article.full_text|safe}}</p>
+<form  action="{% url 'comment' action %}">
+    <input class="btn btn-dark" type="submit" value="Добавить комментарий" />
+</form>
 
 
-    <form   method="post">
-        {% csrf_token %}
-         {{ form.content }}
-        {{ form.article}}
-        <input type="submit" value="Save" />
-    </form>
-
-
-   {% for item in comments %}
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title"> {{ item.author }}</h5>
+{% for item in comments %}
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{ item.author }}</h4>
                 <p class="card-text">{{ item.content }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-    {% endfor %}
+                <p><a href="{% url 'post_delete' item.pk %}">Удалить комментарий</a></p>
+            </div><!-- Конец текстового контента -->
+        </div><!-- Конец карточки -->
+{% endfor %}
 
-<a href="{% url 'comment' 1 %}">Коментарий</a>
 
 
 
