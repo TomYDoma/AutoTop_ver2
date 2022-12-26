@@ -3,10 +3,28 @@
 
 <h1>Полезные материалы</h1>
 
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'news_filter' pk=1 %}">Все темы <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'news_filter' pk=2 %}">Детали и обслуживание</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'news_filter' pk=3 %}">Выбор и покупка</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'news_filter' pk=4 %}">Разбор и топы</a>
+      </li>
+    </ul>
+  </div>
+</nav>
 <div class="row align-items-start" >
     {% for el in news %}
 
-    {{ instance.display_my_safefield }}
+
         <div class="card" style="width: 18rem; height: 30rem">
             <div class="box">
                 <a href="{% url 'news-detail' el.id %}">
@@ -25,5 +43,11 @@
     {% endfor %}
 
 </div>
+
+{% for el in comm %}
+ <h1>{{ el.author }}</h1>
+{% endfor %}
+
+
 
 {% endblock content %}

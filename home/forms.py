@@ -1,4 +1,7 @@
-from .models import FeedbackList
+from form import form
+from django import forms
+
+from .models import FeedbackList, Comment
 from django.forms import ModelForm, TextInput
 
 
@@ -25,3 +28,15 @@ class FeedbackListForm(ModelForm):
                 "placeholder": "Ваш телефон"
             })
         }
+
+
+class CommentForm(forms.ModelForm):
+    content = forms.CharField(max_length=200, required=True,
+                                widget=forms.TextInput(attrs={'placeholder': 'content',
+                                                              'class': 'form-control',
+                                                              }))
+
+    class Meta:
+        model = Comment
+        fields = ('content',)
+

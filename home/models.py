@@ -1,5 +1,6 @@
+from django.contrib.auth.models import User
 from django.db import models
-from datetime import datetime
+from datetime import datetime, timezone
 from django.db.models import ImageField
 from django.urls import reverse
 from django import forms
@@ -51,6 +52,7 @@ class SpecialistList(models.Model):
 class mainCart(models.Model):
     name = models.CharField(max_length=200)
     image = models.ImageField(upload_to='images/', null=True, max_length=255)
+    date = models.DateTimeField(default=datetime.now())
     author = models.ForeignKey(
         'auth.User',
         on_delete=models.CASCADE,
@@ -97,3 +99,19 @@ class Articles(models.Model):
     class Meta:
         verbose_name = 'Новость'
         verbose_name_plural = 'Новости'
+
+
+class Comment(models.Model):
+    article = models.ForeignKey(
+        'Articles',
+        on_delete=models.CASCADE,
+    )
+    author = models.ForeignKey(
+        'auth.User',
+        on_delete=models.CASCADE,
+    )
+    content = models.TextField('Комментарий')
+    pub_date = models.DateTimeField('Дата комментария', default=datetime.now())
+
+    def __str__(self):
+        return self.content

@@ -1,8 +1,33 @@
 {% extends 'home/base.html' %}
 {% block content %}
 <h1>{{article.title}}</h1>
+
+
 <p align="left">{{article.full_text|safe}}</p>
 
+
+    <form   method="post">
+        {% csrf_token %}
+         {{ form.content }}
+        {{ form.article}}
+        <input type="submit" value="Save" />
+    </form>
+
+
+   {% for item in comments %}
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title"> {{ item.author }}</h5>
+                <p class="card-text">{{ item.content }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+    {% endfor %}
+
+<a href="{% url 'comment' 1 %}">Коментарий</a>
 
 
 
