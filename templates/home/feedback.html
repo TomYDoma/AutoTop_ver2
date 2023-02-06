@@ -3,12 +3,9 @@
 <h4>Оставьте данные и наши менеджеры свяжутся с вами в течение 30 минут</h4><br>
 
     <form action="" method="post">{% csrf_token %}
-
-
-
         <label class="form-label">Имя</label><br>
         {{ form.name }}<br>
-        <label class="form-label">Email address</label><br>
+        <label class="form-label">Email</label><br>
         {{ form.email }}<br>
         <label class="form-label">Телефон</label><br>
         {{ form.number }}<br>

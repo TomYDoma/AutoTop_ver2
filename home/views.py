@@ -4,22 +4,19 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, DeleteView
 from .forms import FeedbackListForm, CommentForm
-
-
-from .models import SpecialistAdmin, SpecialistList, mainCart, FeedbackList, Articles, Comment
+from .models import SpecialistAdmin, SpecialistList, mainCart, FeedbackList, Articles, Comment, Work
 
 
 def mainCartt(request):
     news = mainCart.objects.order_by('-date')[:4]
     return render(request, 'home/index.html', {'news': news})
 
-
 def contact(request):
     return render(request, 'home/contact.html')
 
-
-def services(request):
-    return render(request, 'home/services.html')
+class ServicesListView(ListView):
+    model = Work
+    template_name = 'home/services.html'
 
 
 class NewsDetailView(DetailView):
@@ -55,7 +52,6 @@ def createComment(request, id):
     }
     return render(request, 'home/new_comment.html', data)
 
-
 #Сейчас пользователь может удалять любой комментарий, нужно поставить запрет на
 # удаление чужих комментов
 
@@ -81,8 +77,6 @@ def news_filter(request, pk):
         news = Articles.objects.filter(anons="Разбор и топы")
     return render(request, 'home/useful.html', {'news': news})
 
-
-
 class SmecListView(ListView):
     model = SpecialistList
     template_name = 'home/team_specialist.html'
@@ -90,11 +84,6 @@ class SmecListView(ListView):
 class SmecAdminListView(ListView):
     model = SpecialistAdmin
     template_name = 'home/team_admin.html'
-
-
-
-
-
 
 def createFeedback(request):
     eror = ''

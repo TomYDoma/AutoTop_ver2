@@ -1,13 +1,27 @@
 body {
   margin: 0;
 }
+
 /* region подчеркивание */
 .underline-one {
 	color: #000000; /* Цвет обычной ссылки */
     position: relative;
     cursor: pointer;
     text-decoration: none; /* Убираем подчеркивание */
+    margin: 0; padding: 0;
+
 }
+
+.container-fluid, .container, #navbarWithDropdown{
+    border: 0px;
+}
+
+ .dropdown-menu li a:hover,ul#nav li.active a{
+  background-color: rgba(38, 38, 34, 0.68);
+  color: white;
+}
+
+
 .underline-one:after {
 	content: "";
     display: block;

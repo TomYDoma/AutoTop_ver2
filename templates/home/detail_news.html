@@ -15,13 +15,14 @@
             <div class="card-body">
                 <h4 class="card-title">{{ item.author }}</h4>
                 <p class="card-text">{{ item.content }}</p>
-                <p><a href="{% url 'post_delete' item.pk %}">Удалить комментарий</a></p>
+                {% if item.author == user %}
+                    <p><a href="{% url 'post_delete' item.pk %}">Удалить комментарий</a></p>
+                {% elif var2 %}
+                    {{ var2 }}
+                {% endif %}
+
             </div><!-- Конец текстового контента -->
         </div><!-- Конец карточки -->
 {% endfor %}
-
-
-
-
 
 {% endblock content %}

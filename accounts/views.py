@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views import View
 from django.contrib.auth.views import LoginView, PasswordResetView, PasswordChangeView
-from .forms import RegisterForm, LoginForm
+from .forms import RegisterForm, LoginForm, UpdateCarForm
 from .forms import UpdateUserForm, UpdateProfileForm
 
 class CustomLoginView(LoginView):
@@ -70,6 +70,18 @@ def profile(request):
     return render(request, 'registration/profile.html', {'user_form': user_form, 'profile_form': profile_form})
 
 class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
-    template_name = 'registration/change_password.html'
+    template_name = 'registration/car.html'
     success_message = "Пароль пользователя успешно изменен"
     success_url = reverse_lazy('home')
+
+def car(request):
+    if request.method == 'POST':
+        car_form = UpdateCarForm(request.POST)
+        if car_form.is_valid():
+            car_form.save()
+            messages.success(request, 'Ваш профиль успешно изменен')
+            return redirect(to='car')
+    else:
+        car_form = UpdateCarForm(request.POST)
+
+    return render(request, 'registration/car.html', {'car_form': car_form})

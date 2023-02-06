@@ -1,4 +1,29 @@
 {% extends 'home/base.html' %}
 {% block content %}
 <h1>Услуги</h1>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Наименование</th>
+      <th scope="col">Стоимость</th>
+      <th scope="col">Время выполнения</th>
+      <th scope="col">Гарантия</th>
+    </tr>
+  </thead>
+
+  {% for admin in object_list %}
+  <tbody>
+    <tr>
+      <td>{{forloop.counter}}</td>
+      <td>{{ admin.Name }}</td>
+      <td>{{ admin.Cost}}</td>
+      <td>{{ admin.Execution_Time }} дня</td>
+      <td>{{ admin.Warranty }} месяцев</td>
+    </tr>
+  </tbody>
+  {% endfor %}
+  </table>
+
 {% endblock content %}

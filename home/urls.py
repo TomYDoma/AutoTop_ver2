@@ -2,13 +2,13 @@ from django.urls import path, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
-from .views import (SmecAdminListView, SmecListView, mainCart, BlogDeleteView)
+from .views import (SmecAdminListView, SmecListView, mainCart, BlogDeleteView, ServicesListView)
 
 urlpatterns = [
     path('feedback_new', views.createFeedback, name='feedback_new'),
     path('', views.mainCartt, name = "home"),
     path('contact', views.contact, name = "contact"),
-    path('services', views.services, name="services"),
+    path('services', ServicesListView.as_view(), name="services"),
     path('team_specialist',SmecListView.as_view(), name="team_specialist"),
     path('team_admin', SmecAdminListView.as_view(), name='team_admin'),
     path('useful', views.useful, name='useful'),
