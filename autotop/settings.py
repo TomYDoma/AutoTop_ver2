@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
+    'order',
     'accounts.apps.AccountsConfig',
 ]
 
@@ -156,3 +157,6 @@ import os
 from dotenv import load_dotenv
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
 load_dotenv(dotenv_path)
+
+
+CART_SESSION_ID = 'order'

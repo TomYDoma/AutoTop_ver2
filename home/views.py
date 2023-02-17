@@ -3,8 +3,10 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, DeleteView
+
+import order.models
 from .forms import FeedbackListForm, CommentForm
-from .models import SpecialistAdmin, SpecialistList, mainCart, FeedbackList, Articles, Comment, Work
+from .models import SpecialistAdmin, SpecialistList, mainCart, FeedbackList, Articles, Comment
 
 
 def mainCartt(request):
@@ -15,7 +17,7 @@ def contact(request):
     return render(request, 'home/contact.html')
 
 class ServicesListView(ListView):
-    model = Work
+    model = order.models.TypesWork
     template_name = 'home/services.html'
 
 

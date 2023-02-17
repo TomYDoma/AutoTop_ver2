@@ -120,18 +120,8 @@ class Comment(models.Model):
     def get_absolute_url(self):
         return reverse("comment", kwargs={"id": self.id})
 
-class Work(models.Model):
-    author = models.ForeignKey(
-        'auth.User',
-        on_delete=models.CASCADE,
-    )
-    Name = models.CharField('Название работы', max_length=50)
-    Cost = models.IntegerField('Стоимость')
-    Execution_Time = models.IntegerField("Время выполнения")
-    Warranty = models.IntegerField("Гарантия")
-    def __str__(self):
-        return self.Name
-
     class Meta:
-        verbose_name = 'Работа'
-        verbose_name_plural = 'Работы'
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
+
+

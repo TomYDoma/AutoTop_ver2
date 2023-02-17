@@ -7,7 +7,6 @@ from datetime import datetime
 from django.http import request
 from django.urls import reverse
 
-from home.models import SpecialistList, Work
 
 #Дополнение к профилю Django
 class Profile(models.Model):
@@ -61,39 +60,3 @@ class Car(models.Model):
 
 
 
-#Статус заказа
-class Status(models.Model):
-    Name = models.CharField('Наименование', max_length=50)
-    def __str__(self):
-        return str(self.Name)
-    class Meta:
-        verbose_name = 'Статус'
-        verbose_name_plural = 'Статусы'
-
-
-#Состав заказа по работам
-class CompositionWorks(models.Model):
-    Employee = models.ForeignKey(SpecialistList, on_delete=models.CASCADE)
-    Works = models.ForeignKey(Work, on_delete=models.CASCADE)
-    def __str__(self):
-        return str(self.Works)
-    class Meta:
-        verbose_name = 'Состав заказов по работам'
-        verbose_name_plural = 'Составы заказов по работам'
-
-
-#Заказ-наряд
-class Order(models.Model):
-    Car = models.ForeignKey(Car, on_delete=models.CASCADE)
-    Client = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    Status = models.ForeignKey(Status, on_delete=models.CASCADE)
-    Start_Date = models.DateField('Дата начала', default=django.utils.timezone.now)
-    Cost = models.IntegerField('Стоимость')
-    CompositionWorks = models.ForeignKey(CompositionWorks, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return str(self.Car)
-
-    class Meta:
-        verbose_name = 'Заказ'
-        verbose_name_plural = 'Заказы'
