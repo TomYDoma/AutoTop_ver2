@@ -1,61 +1,38 @@
 {% extends 'home/base.html' %}
 {% block content %}
     <h1>Мои машины:</h1>
+    <div class="nav-right">
+        <a href="{% url 'car_new' %}">Добавить машину в гараж</a>
+    </div>
+<div class="row align-items-start" >
+ {% for car in object_list %}
 
-        <div class="row">
-            <div class="col-md-5 border-right">
-                <div >
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4 class="text-right">Личный кабинет пользователя</h4>
-                    </div>
-                    <form method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                            <div class="row mt-3">
-                                <div class="col-md-8">
-                                    <label class="labels">Марка</label>
-                                    {{ car_form.Car_Brand }}
-                                </div>
-                                <div class="col-md-8">
-                                    <label class="labels">Модель</label>
-                                    {{ Car_form.Car_Model }}
-                                </div>
-                                <div class="col-md-8">
-                                    <label class="labels">Никнейм</label>
-                                    {{ user_form.username }}
-                                </div>
-                                <div class="col-md-8">
-                                    <label class="labels">Email</label>
-                                    {{ user_form.email }}
-                                </div>
-                                <div class="col-md-8">
-                                    <label class="labels">Телефон</label>
-                                    {{ profile_form.numberPhone }}
-                                </div>
+    {% if car.author == user %}
 
-                                <div class="col-md-8">
-                                   <label class="labels">Описание профиля</label>
-                                    {{ profile_form.bio }}
-                                </div>
-                                <div class="col-md-8">
-                                   <label class="labels">Фото профиля</label>
-                                    {{ profile_form.avatar }}
-                                </div>
-                                <div class="col-md-8">
-                                    <button class="btn btn-dark profile-button" type="submit">Сохранить профиль</button>
-
-                                </div>
-                                <div class="col-md-8">
-
-                                </div>
-
-                            </div>
-
-
-
-
-                    </form>
+         <div class="card" style="width: 18rem; height: 30rem">
+            <div class="box">
+                <a href="{% url 'car_detail' car.pk %}">
+                    <img src="{{car.image.url}}"   alt="..."s>
+                </a>
+            </div>
+            <div class="card-body">
+                <div style="background-color: orange; border-radius: 2px; ">
+                    <p class="card-text" style="font-weight: bold; color:#ffffff; font-size: 14px">{{ car.VIN }}</p>
+                </div>
+                <h5 class="card-title">{{ car.Car_Brand}} {{ car.Car_Model }}</h5>
+                <h5 class="card-title">{{ car.State_Number }}</h5>
+                <p class="card-text">{{ car.Color }}</p>
             </div>
         </div>
-    </div>
 
+
+
+    {% else %}
+
+    {% endif %}
+
+  {% endfor %}
+</div>
 {% endblock content %}
+
+

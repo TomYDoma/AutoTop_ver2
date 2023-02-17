@@ -1,0 +1,15 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+
+    <h1>Удаление автомобиля</h1>
+    <form action="" method="post">{% csrf_token %}
+      <p>Вы точно хотите удалить "{{ car.Car_Brand }} {{ car.Car_Model }}"?</p>
+      <input type="submit" value="Подтвердить" />
+
+
+    </form>
+ <button onclick="window.location.href='{% url "car" %}'">Отмена</button>
+
+
+{% endblock content %}

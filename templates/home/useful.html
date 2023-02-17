@@ -21,28 +21,27 @@
     </ul>
   </div>
 </nav>
+
 <div class="row align-items-start" >
     {% for el in news %}
-
-
         <div class="card" style="width: 18rem; height: 30rem">
             <div class="box">
                 <a href="{% url 'news-detail' el.id %}">
                     <img src="{{el.image.url}}"   alt="..."s>
                 </a>
-
             </div>
             <div class="card-body">
                 <div style="background-color: orange; border-radius: 2px; ">
                     <p class="card-text" style="font-weight: bold; color:#ffffff; font-size: 14px">{{ el.anons }}</p>
                 </div>
                 <h5 class="card-title">{{ el.title}}</h5>
-                <p class="card-text">{{ el.date }}</p>
+                <p class="card-text">{{ el.date }} </p>
             </div>
         </div>
     {% endfor %}
-
 </div>
+
+
 
 {% for el in comm %}
  <h1>{{ el.author }}</h1>

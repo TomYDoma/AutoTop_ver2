@@ -105,41 +105,16 @@ class UpdateProfileForm(forms.ModelForm):
         fields = ['avatar', 'bio', 'numberPhone']
 
 
-class UpdateCarForm(forms.ModelForm):
-    Car_Brand = forms.CharField(max_length=100,
-                               required=True,
-                               widget=forms.TextInput(attrs={'placeholder': 'Car_Brand',
-                                                             'class': 'form-control',
-                                                             }))
-    Car_Model = forms.CharField(max_length=100,
-                               required=True,
-                               widget=forms.TextInput(attrs={'placeholder': 'Username',
-                                                             'class': 'form-control',
-                                                             }))
-    image = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
-    PTS = forms.CharField(max_length=100,
-                               required=True,
-                               widget=forms.TextInput(attrs={'placeholder': 'Username',
-                                                             'class': 'form-control',
-                                                             }))
-    State_Number = forms.CharField(max_length=100,
-                               required=True,
-                               widget=forms.TextInput(attrs={'placeholder': 'Username',
-                                                             'class': 'form-control',
-                                                             }))
-    VIN = forms.CharField(max_length=100,
-                               required=True,
-                               widget=forms.TextInput(attrs={'placeholder': 'Username',
-                                                             'class': 'form-control',
-                                                             }))
-    Color = forms.CharField(max_length=100,
-                               required=True,
-                               widget=forms.TextInput(attrs={'placeholder': 'Username',
-                                                             'class': 'form-control',
-                                                             }))
 
 
-
+###### Форма для добавления машины
+class CarForm(forms.ModelForm):
     class Meta:
         model = Car
-        fields = ['Car_Brand', 'Car_Model', 'image', 'PTS','State_Number', 'VIN', 'Color']
+        fields = ['Car_Brand', 'Car_Model', 'image', 'PTS', 'State_Number', 'VIN', 'Color']
+
+
+class CarEditForm(forms.ModelForm):
+    class Meta:
+        model = Car
+        fields = ['Car_Brand', 'Car_Model', 'image', 'PTS', 'State_Number', 'VIN', 'Color']

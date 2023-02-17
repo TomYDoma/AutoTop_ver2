@@ -5,11 +5,12 @@
         <div class="row">
             <div class="col-md-3 ">
                 <div class="d-flex flex-column align-items-center text-center ">
-
                     <img class="rounded-circle mt-5" width="150px" height="150px" src="{{ user.profile.avatar.url }}">
                     <span class="text-black-50">{{user.username}}</span>
                     <a href="{% url 'password_change' %}">Изменить пароль</a>
                     <button class="btn-close" onclick="window.location.href='{% url 'logout' %}'"></button>
+                    <button onclick="window.location.href='{% url 'car' %}'">Мой гараж</button>
+                     <button onclick="window.location.href='{% url 'car' %}'">Мои заказы</button>
                 </div>
             </div>
             {% if user_form.errors %}

@@ -1,0 +1,21 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+<button onclick="window.location.href='{% url 'car' %}'">В гараж</button>
+  <div class="post-entry">
+    <img src="{{car.image.url}}"   alt="..." style="height: 200px">
+    <h2>{{ car.Car_Brand }} {{ car.Car_Model }}</h2>
+    <h2></h2>
+    <h2>{{ car.PTS }}</h2>
+    <h2>{{ car.State_Number }}</h2>
+    <h2>{{ car.VIN }}</h2>
+    <h2>{{ car.Color }}</h2>
+    <h2>{{ car.Relese_Date }}</h2>
+
+  </div>
+
+<a href='{% url "car_edit" car.pk %}'> Отредактировать </a>
+<p><a href="{% url 'car_delete' car.pk %}">Удалить</a></p>
+
+
+{% endblock content %}

@@ -1,3 +1,4 @@
+import django
 from django.db import models
 from datetime import datetime
 from django.urls import reverse
@@ -48,7 +49,7 @@ class SpecialistList(models.Model):
 class mainCart(models.Model):
     name = models.CharField(max_length=200)
     image = models.ImageField(upload_to='images/', null=True, max_length=255)
-    date = models.DateTimeField(default=datetime.now())
+    date = models.DateTimeField(default=django.utils.timezone.now)
     author = models.ForeignKey(
         'auth.User',
         on_delete=models.CASCADE,
@@ -68,9 +69,13 @@ class mainCart(models.Model):
 #Обратная связь
 class FeedbackList(models.Model):
     name = models.CharField(max_length=200, default = None)
+    author = models.ForeignKey(
+        'auth.User',
+        on_delete=models.CASCADE,
+    )
     email = models.CharField(max_length=200, default = None)
     number = models.CharField(max_length=200, default = None)
-    date = models.DateTimeField(default=datetime.now())
+    date = models.DateTimeField(default=django.utils.timezone.now)
     def __str__(self):
         return self.name
 
@@ -107,7 +112,7 @@ class Comment(models.Model):
         on_delete=models.CASCADE,
     )
     content = models.TextField('Комментарий')
-    pub_date = models.DateTimeField('Дата комментария', default=datetime.now())
+    pub_date = models.DateTimeField('Дата комментария', default=django.utils.timezone.now)
 
     def __str__(self):
         return self.content

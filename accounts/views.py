@@ -1,12 +1,18 @@
+from datetime import datetime
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.contrib.auth.views import LoginView, PasswordResetView, PasswordChangeView
-from .forms import RegisterForm, LoginForm, UpdateCarForm
+from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
+
+from .forms import RegisterForm, LoginForm, CarForm, CarEditForm
 from .forms import UpdateUserForm, UpdateProfileForm
+from .models import Car
+
 
 class CustomLoginView(LoginView):
     form_class = LoginForm
@@ -74,14 +80,38 @@ class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
     success_message = "Пароль пользователя успешно изменен"
     success_url = reverse_lazy('home')
 
-def car(request):
-    if request.method == 'POST':
-        car_form = UpdateCarForm(request.POST)
-        if car_form.is_valid():
-            car_form.save()
-            messages.success(request, 'Ваш профиль успешно изменен')
-            return redirect(to='car')
-    else:
-        car_form = UpdateCarForm(request.POST)
 
-    return render(request, 'registration/car.html', {'car_form': car_form})
+
+class CarListView(ListView):
+    model = Car
+    template_name = 'registration/car.html'
+
+
+class CarDetailView(DetailView):
+    model = Car
+    template_name = 'registration/car_detail.html'
+
+
+class CarCreateView(CreateView):
+    model = Car
+    template_name = 'registration/car_new.html'
+    form_class = CarForm
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        instance.author = self.request.user
+        instance.Relese_Date = datetime.now()
+        form.save()
+        return super(CarCreateView, self).form_valid(form)
+
+
+class CarUpdateView(UpdateView):  # Новый класс
+    model = Car
+    template_name = 'registration/car_edit.html'
+    form_class = CarEditForm
+
+
+class CarDeleteView(DeleteView): # Создание нового класса
+    model = Car
+    template_name = 'registration/car_delete.html'
+    success_url = reverse_lazy('car')
