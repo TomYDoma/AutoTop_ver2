@@ -42,7 +42,7 @@ class SpecialistList(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = 'Специалисты'
+        verbose_name = 'Специалист'
         verbose_name_plural = 'Специалисты'
 
 #Таблица с записями на главной странице

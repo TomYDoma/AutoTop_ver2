@@ -1,0 +1,39 @@
+{% extends 'home/base.html' %}
+{% block content %}
+    <h1>Мои заказы:</h1>
+    <div class="nav-right">
+        <a href="">Создание заказа</a>
+    </div>
+
+{% for car in object_list %}
+
+    {% if car.ID_Client == user %}
+
+         <div class="card" style="width: 18rem; height: 30rem">
+            <div class="box">
+                <a href="{% url 'car_detail' car.pk %}">
+                    <img src="{{car.image.url}}"   alt="..."s>
+                </a>
+            </div>
+            <div class="card-body">
+                <div style="background-color: orange; border-radius: 2px; ">
+                    <p class="card-text" style="font-weight: bold; color:#ffffff; font-size: 14px">{{ car.ID_Car }}</p>
+                </div>
+                <h5 class="card-title">{{ car.ID_Client }}</h5>
+                <h5 class="card-title">{{ car.ID_CompositionOrder.ID_Employee }}</h5>
+                <p class="card-text">{{ car.ID_CompositionOrder }}  !!! Тут нужно разобраться с получением всего списка элементов many to many</p>
+            </div>
+        </div>
+
+
+
+    {% else %}
+
+    {% endif %}
+
+  {% endfor %}
+
+
+{% endblock content %}
+
+

@@ -10,7 +10,7 @@
                     <a href="{% url 'password_change' %}">Изменить пароль</a>
                     <button class="btn-close" onclick="window.location.href='{% url 'logout' %}'"></button>
                     <button onclick="window.location.href='{% url 'car' %}'">Мой гараж</button>
-                     <button onclick="window.location.href='{% url 'car' %}'">Мои заказы</button>
+                     <button onclick="window.location.href='{% url 'order' %}'">Мои заказы</button>
                 </div>
             </div>
             {% if user_form.errors %}

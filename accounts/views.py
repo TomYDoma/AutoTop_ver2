@@ -76,7 +76,7 @@ def profile(request):
     return render(request, 'registration/profile.html', {'user_form': user_form, 'profile_form': profile_form})
 
 class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
-    template_name = 'registration/car.html'
+    template_name = 'registration/change_password.html'
     success_message = "Пароль пользователя успешно изменен"
     success_url = reverse_lazy('home')
 
