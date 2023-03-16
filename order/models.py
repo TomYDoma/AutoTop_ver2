@@ -17,7 +17,7 @@ class TypesWork(models.Model):
         return self.price
 
     def return_work(self):
-        return self.name
+        return f"{self.name}, стоимость: {self.price} Р"
     class Meta:
         verbose_name = 'Вид работы'
         verbose_name_plural = 'Виды работ'
@@ -55,7 +55,7 @@ class Autopart(models.Model):
         verbose_name_plural = 'Автозапчасти'
 
     def __str__(self):
-        return self.name
+        return f"{self.name}, стоимость: {self.price} Р"
 
 #Статус заказа
 class Status(models.Model):
@@ -118,8 +118,7 @@ class OrderAutopart(models.Model):
         return self.count * self.autopart.price
 
     def return_autopart(self):
-        return self.autopart
-               #f"Стоимость: {self.autopart.price} * {self.count} = Р{self.total()}"
+        return f"{self.autopart}, Количество: {self.count} ШТ"
     def __str__(self):
         return f"{self.autopart.name}, " \
                f"р{self.autopart.price} * {self.count} = Р{self.total()}"

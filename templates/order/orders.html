@@ -14,27 +14,17 @@
                 <div class="product-item">
                     <img src="{{ car.ID_Car.image.url }}">
                     <div class="product-buttons">
-                        <a href="" class="button">Подробнее</a>
+                        <a href={% url 'order_detail' car.pk %} class="button">Подробнее</a>
                     </div>
                 </div>
 
 
                 <div class="product-title">
-                    <a href="">{{ car.ID_Car }}</a>
+
 
                         <p class="product-price">{{ car.status }}
-                        <p>{{ car.created }}</p>
+                        <p>От {{ car.created }}</p>
                         <p>{{ car.OrderAutopart }}</p>
-
-                        <h4>Запчасти:</h4>
-                        {% for v in car.total_autopart %}
-                          <p>{{ v }}</p>
-                        {% endfor %}
-
-                        <h4>Работы:</h4>
-                        {% for d in car.total_work %}
-                          <p>{{ d }}</p>
-                        {% endfor %}
 
                         <p class="product-price"> Общая стоимость:  {{ car.total_price }}</p>
                 </div>

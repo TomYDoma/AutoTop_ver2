@@ -1,0 +1,38 @@
+{% extends 'home/base.html' %}
+{% block content %}
+    <h1>Заказ от {{ order.created }}</h1>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Статус</th>
+                <th scope="col">Автомобиль</th>
+                <th scope="col">Запчасти</th>
+                <th scope="col">Работы</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td> {{ order.status }}</td>
+          <td>
+              <img style="height: 10rem" src="{{ order.ID_Car.image.url }}">
+              <p>{{ order.ID_Car }}</p>
+          </td>
+          <td>
+              {% for v in order.total_autopart %}
+                  <p>{{ v }}</p>
+              {% endfor %} </td>
+          <td>
+              {% for d in order.total_work %}
+                  <p>{{ d }}</p>
+              {% endfor %}
+          </td>
+        </tr>
+        </tbody>
+    </table>
+    <p class="product-price"> Общая стоимость:  {{ order.total_price }}</p>
+
+
+{% endblock content %}
+
+
