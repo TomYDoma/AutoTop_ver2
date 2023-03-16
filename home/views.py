@@ -54,8 +54,6 @@ def createComment(request, id):
     }
     return render(request, 'home/new_comment.html', data)
 
-#Сейчас пользователь может удалять любой комментарий, нужно поставить запрет на
-# удаление чужих комментов
 
 class BlogDeleteView(DeleteView):
     model = Comment

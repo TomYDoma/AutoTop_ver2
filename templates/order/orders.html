@@ -4,35 +4,50 @@
     <div class="nav-right">
         <a href="">Создание заказа</a>
     </div>
-
+<div class="row align-items-start" >
 {% for car in object_list %}
 
     {% if car.ID_Client == user %}
 
-         <div class="card" style="width: 18rem; height: 30rem">
-            <div class="box">
-                <a href="{% url 'car_detail' car.pk %}">
-                    <img src="{{car.image.url}}"   alt="..."s>
-                </a>
-            </div>
-            <div class="card-body">
-                <div style="background-color: orange; border-radius: 2px; ">
-                    <p class="card-text" style="font-weight: bold; color:#ffffff; font-size: 14px">{{ car.ID_Car }}</p>
+        <div class="card" style="width: 30rem; height: 45rem">
+            <div class="product-wrap">
+                <div class="product-item">
+                    <img src="{{ car.ID_Car.image.url }}">
+                    <div class="product-buttons">
+                        <a href="" class="button">Подробнее</a>
+                    </div>
                 </div>
-                <h5 class="card-title">{{ car.ID_Client }}</h5>
-                <h5 class="card-title">{{ car.ID_CompositionOrder.ID_Employee }}</h5>
-                <p class="card-text">{{ car.ID_CompositionOrder }}  !!! Тут нужно разобраться с получением всего списка элементов many to many</p>
+
+
+                <div class="product-title">
+                    <a href="">{{ car.ID_Car }}</a>
+
+                        <p class="product-price">{{ car.status }}
+                        <p>{{ car.created }}</p>
+                        <p>{{ car.OrderAutopart }}</p>
+
+                        <h4>Запчасти:</h4>
+                        {% for v in car.total_autopart %}
+                          <p>{{ v }}</p>
+                        {% endfor %}
+
+                        <h4>Работы:</h4>
+                        {% for d in car.total_work %}
+                          <p>{{ d }}</p>
+                        {% endfor %}
+
+                        <p class="product-price"> Общая стоимость:  {{ car.total_price }}</p>
+                </div>
             </div>
         </div>
 
 
-
     {% else %}
-
+        <h1>Заказов нет</h1>
     {% endif %}
 
   {% endfor %}
-
+</div>
 
 {% endblock content %}
 

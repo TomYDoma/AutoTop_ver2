@@ -1,20 +1,23 @@
 import django
 from django.db import models
-
 import accounts.models
-import home
-
-
 
 ####Виды работ
 class TypesWork(models.Model):
-    Name = models.CharField('Название работы', max_length=50)
-    Price = models.DecimalField('Стоимость',max_digits=10, decimal_places=2)
-    Execution_Time = models.IntegerField("Срок выполнения")
-    Warranty = models.IntegerField("Гарантия")
-    def __str__(self):
-        return self.Name
+    name = models.CharField('Название работы', max_length=50)
+    price = models.DecimalField('Стоимость',max_digits=10, decimal_places=2)
+    execution_Time = models.IntegerField("Срок выполнения")
+    warranty = models.IntegerField("Гарантия")
 
+
+    def __str__(self):
+        return f"{self.name}: Р{self.price}"
+
+    def return_price(self):
+        return self.price
+
+    def return_work(self):
+        return self.name
     class Meta:
         verbose_name = 'Вид работы'
         verbose_name_plural = 'Виды работ'
@@ -54,47 +57,69 @@ class Autopart(models.Model):
     def __str__(self):
         return self.name
 
-
-####Состав заказа
-class CompositionOrder(models.Model):
-    #ID_Order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    ID_TypesWorks = models.ManyToManyField(TypesWork)
-    ID_Employee = models.ForeignKey(home.models.SpecialistList, on_delete=models.PROTECT)
-    ID_Autopart = models.ManyToManyField(Autopart)
-
-    def __str__(self):
-        return str(self.ID_TypesWorks)
-    class Meta:
-        verbose_name = 'Состав заказов'
-        verbose_name_plural = 'Составы заказов'
-
-
 #Статус заказа
 class Status(models.Model):
-    Name = models.CharField('Наименование', max_length=50)
+    name = models.CharField('Наименование', max_length=50)
     def __str__(self):
-        return str(self.Name)
+        return str(self.name)
     class Meta:
         verbose_name = 'Статус'
         verbose_name_plural = 'Статусы'
 
 
+
 #Заказ-наряд
 class Order(models.Model):
+    paid = models.BooleanField(default=False)
+
     ID_Car = models.ForeignKey(accounts.models.Car, on_delete=models.CASCADE)
     ID_Client = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    ID_CompositionOrder = models.ForeignKey(CompositionOrder, on_delete=models.PROTECT)
-    Status = models.ForeignKey(Status, on_delete=models.PROTECT)
-    Start_Date = models.DateTimeField(auto_now_add=True)
-    End_Date = models.DateTimeField(auto_now=True)
-    Cost = models.IntegerField('Стоимость')
+
+    work = models.ManyToManyField(TypesWork)
+
+    status = models.ForeignKey(Status, on_delete=models.PROTECT)
+    created = models.DateTimeField(auto_now_add=True)
+    end_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return str(self.Start_Date)
+        return f"{self.created}, Р{self.total_price()}: {self.paid}"
+
+    def total_price(self):
+        i = 0
+        for cart_item in self.work.all():
+            i += cart_item.return_price()
+        return sum([
+            cart_item.total()
+            for cart_item in OrderAutopart.objects.filter(order=self)
+        ], i)
+
+    def total_work(self):
+        return ([
+            cart_item.return_work()
+            for cart_item in self.work.all()
+        ])
+    def total_autopart(self):
+        return ([
+            cart_item.return_autopart()
+            for cart_item in OrderAutopart.objects.filter(order=self)
+        ])
+
 
     class Meta:
         verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'
 
 
+class OrderAutopart(models.Model):
+    autopart = models.ForeignKey(Autopart, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    count = models.IntegerField(default=1)
+    def total(self):
+        return self.count * self.autopart.price
 
+    def return_autopart(self):
+        return self.autopart
+               #f"Стоимость: {self.autopart.price} * {self.count} = Р{self.total()}"
+    def __str__(self):
+        return f"{self.autopart.name}, " \
+               f"р{self.autopart.price} * {self.count} = Р{self.total()}"

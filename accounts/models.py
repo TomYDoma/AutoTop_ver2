@@ -48,7 +48,7 @@ class Car(models.Model):
     Relese_Date = models.DateField('Дата выпуска', default=django.utils.timezone.now, null = True)
 
     def __str__(self):
-        return self.VIN
+        return f"{self.Car_Brand} {self.Car_Model}, VIN: {self.VIN}"
 
     def get_absolute_url(self):
         return reverse('car_detail', args=[str(self.id)])
