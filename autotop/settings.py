@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home',
     'order',
+    'shop',
+    'cart',
+    'nested_admin',
     'accounts.apps.AccountsConfig',
 ]
 
@@ -69,6 +72,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.cart',
+
             ],
         },
     },
@@ -76,6 +81,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'autotop.wsgi.application'
 
+CART_SESSION_ID = 'cart'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -83,6 +89,7 @@ WSGI_APPLICATION = 'autotop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'autotop',
         'NAME': 'autotop',
         'USER': 'postgres',
         'PASSWORD': 'postgres',

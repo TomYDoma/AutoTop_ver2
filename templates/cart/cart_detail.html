@@ -1,0 +1,47 @@
+{% extends 'home/base.html' %}
+{% block content %}
+    <h1>Корзина с товарамиd</h1>
+        <a href="{% url 'order:order_new' %}" class="button">Checkout</a>
+    <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Фото</th>
+              <th scope="col">Наименование</th>
+              <th scope="col">Количество</th>
+              <th scope="col">Удалить</th>
+              <th scope="col">Цена</th>
+              <th scope="col">Стоимость</th>
+            </tr>
+          </thead>
+        <tbody>
+        {% for item in cart %}
+            {% with product=item.product %}
+            <tr>
+              <th scope="row">{{forloop.counter}}</th>
+              <td>
+                  <a href="{{ product.get_absolute_url }}">
+                      <img src="{{ product.image.url }}" style="height: 10rem">
+                  </a>
+              </td>
+              <td>{{ product.name }}</td>
+              <td>{{ item.quantity }}</td>
+                    <td><a href="{% url "cart:cart_remove" product.id%}">Удалить</a></td>
+                    <td class="num">{{ item.price }}р</td>
+                    <td class="num">{{ item.total_price }}р</td>
+            </tr>
+         {% endwith %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <p class="text-right">
+        <a href="{% url "shop:product_list" %}" class="button light">Continue shopping</a>
+        <a href="#" class="button">Checkout</a>
+    </p>
+
+
+
+{% endblock content %}
+
+

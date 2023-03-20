@@ -1,22 +1,24 @@
 from django.contrib import admin
+import nested_admin
+from order.models import Order, Status, TypesWork, OrderItem, OrderWork
 
-from order.models import Order, Status, TypesWork, Category, Autopart, OrderAutopart
 
-admin.site.register(TypesWork)
-admin.site.register(Category)
-admin.site.register(Status)
+class ItemInline(nested_admin.NestedTabularInline):
+    model = OrderItem
+    extra =0
 
-class ItemInline(admin.StackedInline):
-    model = OrderAutopart
+class WorkInline(nested_admin.NestedTabularInline):
+    model = OrderWork
+    extra =0
+
+class ContestantInline(nested_admin.NestedModelAdmin):
+    model = Order
+    inlines = [ItemInline, WorkInline,]
     extra = 0
 
-class CartAdmin(admin.ModelAdmin):
-    inlines = [ItemInline]
-    list_display = ["created", "total_price", "paid"]
 
+admin.site.register(Order, ContestantInline)
 
-admin.site.register(Order, CartAdmin)
-admin.site.register(Autopart)
-
-
+admin.site.register(Status)
+admin.site.register(TypesWork)
 
