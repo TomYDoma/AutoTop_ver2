@@ -2,8 +2,9 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView
 
 from cart.cart import Cart
+from cartwork.cartwork import CartWork
 from order.forms import OrderCreateForm
-from order.models import Order, OrderItem, Status
+from order.models import Order, OrderItem, Status, OrderWork
 
 
 class OrderListView(ListView):
@@ -17,6 +18,7 @@ class OrderDetailView(DetailView): # новое
 
 def order_create(request):
     cart = Cart(request)
+    cartwork = CartWork(request)
     if request.method == 'POST':
         form = OrderCreateForm(request.POST)
         if form.is_valid():
@@ -29,12 +31,16 @@ def order_create(request):
                                          quantity=item['quantity'])
                 # clear the cart
             cart.clear()
+            for item in cartwork:
+                OrderWork.objects.create(order=order, work=item['product'])
+                # clear the cart
+            cartwork.clear()
             return render(request, 'order/order_new.html',
                           {'order': order})
     else:
         form = OrderCreateForm()
     return render(request, 'order/order_new.html',
-                  {'cart': cart, 'form': form})
+                  {'cart': cart, 'work': cartwork, 'form': form})
 
 
 

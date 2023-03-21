@@ -1,6 +1,20 @@
 {% extends 'home/base.html' %}
 {% block content %}
-    <h1>Выбранные товары</h1>
+        <div class="cartwork">
+        {% with total_items=cartwork|length %}
+            {% if cart|length > 0 %}
+                Your cart:
+                <a href="{% url "cartwork:cartwork_detail" %}">
+                    {{ total_items }} item{{ total_items|pluralize }},
+                    {{ cartwork.get_total_price }} р
+                </a>
+            {% else %}
+                Your cart is empty.
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <h1>Выбранные услуги</h1>
         <a href="{% url 'order:order_new' %}" class="button">Checkout</a>
     <table class="table">
           <thead>
@@ -8,14 +22,13 @@
               <th scope="col">#</th>
               <th scope="col">Фото</th>
               <th scope="col">Наименование</th>
-              <th scope="col">Количество</th>
               <th scope="col">Удалить</th>
-              <th scope="col">Цена</th>
+
               <th scope="col">Стоимость</th>
             </tr>
           </thead>
         <tbody>
-        {% for item in cart %}
+        {% for item in cartwork %}
             {% with product=item.product %}
             <tr>
               <th scope="row">{{forloop.counter}}</th>
@@ -25,9 +38,8 @@
                   </a>
               </td>
               <td>{{ product.name }}</td>
-              <td>{{ item.quantity }}</td>
-                    <td><a href="{% url "cart:cart_remove" product.id%}">Удалить</a></td>
-                    <td class="num">{{ item.price }}р</td>
+                    <td><a href="{% url "cartwork:cartwork_remove" product.id%}">Удалить</a></td>
+
                     <td class="num">{{ item.total_price }}р</td>
             </tr>
          {% endwith %}
@@ -36,7 +48,7 @@
     </table>
 
     <p class="text-right">
-        <a href="{% url "shop:product_list" %}" class="button light">Continue shopping</a>
+        <a href="{% url "work:work_list" %}" class="button light">Continue shopping</a>
         <a href="#" class="button">Checkout</a>
     </p>
 

@@ -1,0 +1,54 @@
+{% extends 'home/base.html' %}
+{% block content %}
+    <div class="cartwork">
+        {% with total_items=work|length %}
+            {% if cart|length > 0 %}
+                Your cart:
+                <a href="{% url "cartwork:cartwork_detail" %}">
+                    {{ total_items }} item{{ total_items|pluralize }},
+                    {{ work.get_total_price }}р
+                </a>
+            {% else %}
+                Your cart is empty.
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="{% url "work:work_list" %}">Все</a>
+                  </li>
+                  {% for d in categories %}
+                      <li {% if categoryx.slug == d.slug %}class="selected"{% endif %}>
+                        <a class="nav-link" href="{{ d.get_absolute_url }}">{{ d.name }}</a>
+                      </li>
+                  {% endfor %}
+            </ul>
+      </div>
+    </nav>
+
+
+<div class="row align-items-start" >
+{% for work in products %}
+
+        <div class="card" style="width: 18rem; height: 20rem">
+            <a href="{{ work.get_absolute_url }}">
+                <img src="{{ work.image.url }}" style="height: 8rem">
+            </a>
+            <div class="card-body">
+                <a href="{{ work.get_absolute_url }}">{{ work.name }}</a><br>
+                <p class="product-price">{{ work.price }}р</p>
+            </div>
+        </div>
+
+
+  {% endfor %}
+</div>
+
+
+
+{% endblock content %}
+
+

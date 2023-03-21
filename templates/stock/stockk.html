@@ -1,3 +1,13 @@
+profile.html
+ <a href="{% url 'password_change' %}">Изменить пароль</a>
+
+                    <button onclick="window.location.href='{% url 'car' %}'">Мой гараж</button>
+                     <button onclick="window.location.href='{% url 'order:order' %}'">Мои заказы</button>
+                    <button onclick="window.location.href='{% url 'shop:product_list' %}'">Автозапчати</button>
+                     <button onclick="window.location.href='{% url 'cart:cart_detail' %}'">Корзина с автозапчастями</button>
+                    <button onclick="window.location.href='{% url 'work:work_list' %}'">Работы</button>
+                     <button onclick="window.location.href='{% url 'cartwork:cartwork_detail' %}'">Корзина с заказами</button>
+
 order_detail
 
 {% extends 'home/base.html' %}

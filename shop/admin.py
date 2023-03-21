@@ -19,3 +19,6 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Autopart, ProductAdmin)
+
+
+

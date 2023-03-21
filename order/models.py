@@ -1,6 +1,8 @@
 from django.urls import reverse
 from django.db import models
 import accounts.models
+import work.models
+
 import shop.models
 
 
@@ -28,8 +30,31 @@ class Order(models.Model):
     def __str__(self):
         return f"{self.created},  {self.paid}"
 
+
+    def total_work(self):
+        return ([
+            cart_item
+            for cart_item in OrderWork.objects.filter(order=self)
+        ])
+
+    def total_autopart(self):
+        return ([
+            cart_item.return_autopart()
+            for cart_item in OrderItem.objects.filter(order=self)
+        ])
+
     def get_absolute_url(self):
         return reverse('order:order_detail', args=[str(self.id)])
+
+
+    def total_price(self):
+        i = 0
+        for cart_item in OrderWork.objects.filter(order=self):
+            i += cart_item.return_price()
+        j = 0
+        for cart_item in OrderItem.objects.filter(order=self):
+            j += cart_item.return_price()
+        return sum([j, i])
 
     class Meta:
         ordering = ('-created',)
@@ -44,15 +69,30 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.product}, "
+
+    def return_price(self):
+        return self.product.price * self.quantity
+
+    def return_autopart(self):
+        return self.product
+
     def total(self):
-        return self.quantity * self.price
+        return self.quantity * self.product.price
 
 class OrderWork(models.Model):
     order = models.ForeignKey(Order, related_name='work', on_delete=models.CASCADE)
-    work = models.ForeignKey(TypesWork, related_name='order_work', on_delete=models.CASCADE)
+    work = models.ForeignKey(work.models.Work, related_name='order_work', on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.work}, "
+
+    def return_price(self):
+        return self.work.price
+
+
+    def return_work(self):
+        return f"{self.product}, Количество: {self.quantity} ШТ, Стоимость: {self.work.price}"
+
 
 
 

@@ -6,13 +6,31 @@
             <div class="col-md-3 ">
                 <div class="d-flex flex-column align-items-center text-center ">
                     <img class="rounded-circle mt-5" width="150px" height="150px" src="{{ user.profile.avatar.url }}">
-                    <span class="text-black-50">{{user.username}}</span>
-                    <a href="{% url 'password_change' %}">Изменить пароль</a>
-                    <button class="btn-close" onclick="window.location.href='{% url 'logout' %}'"></button>
-                    <button onclick="window.location.href='{% url 'car' %}'">Мой гараж</button>
-                     <button onclick="window.location.href='{% url 'order:order' %}'">Мои заказы</button>
-                    <button onclick="window.location.href='{% url 'shop:product_list' %}'">Автозапчати</button>
-                     <button onclick="window.location.href='{% url 'cart:cart_detail' %}'">Корзина</button>
+
+
+
+                    <ul class="nav flex-column">
+                      <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            <span class="text-black-50">{{user.username}} <button class="btn-close" onclick="window.location.href='{% url 'logout' %}'"></button></span>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'car' %}">Автомобили</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'order:order' %}">Заказы</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'cart:cart_detail' %}">Выбранные товары</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'cartwork:cartwork_detail' %}">Выбранные услуги</a>
+                      </li>
+                    </ul>
+
+
+
 
                 </div>
             </div>
@@ -44,10 +62,6 @@
                                 <div class="col-md-8">
                                     <label class="labels">Фамилия</label>
                                     {{ user_form.last_name }}
-                                </div>
-                                <div class="col-md-8">
-                                    <label class="labels">Никнейм</label>
-                                    {{ user_form.username }}
                                 </div>
                                 <div class="col-md-8">
                                     <label class="labels">Email</label>

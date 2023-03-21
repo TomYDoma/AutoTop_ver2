@@ -5,6 +5,8 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, DeleteView
 
 import order.models
+import shop
+import work
 from .forms import FeedbackListForm, CommentForm
 from .models import SpecialistAdmin, SpecialistList, mainCart, FeedbackList, Articles, Comment
 
@@ -17,7 +19,7 @@ def contact(request):
     return render(request, 'home/contact.html')
 
 class ServicesListView(ListView):
-    model = order.models.TypesWork
+    model = work.models.Work
     template_name = 'home/services.html'
 
 

@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'order',
     'shop',
     'cart',
+    'work',
+    'cartwork',
     'nested_admin',
     'accounts.apps.AccountsConfig',
 ]
@@ -73,6 +75,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'cart.context_processors.cart',
+                'cartwork.context_work_processors.work',
 
             ],
         },
@@ -82,6 +85,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'autotop.wsgi.application'
 
 CART_SESSION_ID = 'cart'
+
+WORK_SESSION_ID = 'work'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -170,4 +175,4 @@ MEDIA_URL = '/media/'
 #load_dotenv(dotenv_path)
 
 
-CART_SESSION_ID = 'order'
+

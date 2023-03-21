@@ -2,17 +2,13 @@ from django.template.defaulttags import url
 from django.urls import path, re_path
 from django.conf import settings
 from django.conf.urls.static import static
-
 from . import views
 
-
-
-app_name = 'shop'
+app_name = 'work'
 urlpatterns = [
-    #path('feedback_new', views.createFeedback, name='feedback_new'),
-    path('product_list/', views.product_list, name='product_list'),
-    re_path(r'^(?P<category_slug>[-\w]+)/$', views.product_list, name='product_category'),
-    re_path(r'^(?P<id>\d+)/(?P<slug>[-\w]+)/$', views.product_detail, name='product_detail'),
+    path('work_list/', views.work_list, name='work_list'),
+    re_path(r'^(?P<category_slug>[-\w]+)/$', views.work_list, name='work_list_by_category'),
+    re_path(r'^(?P<id>\d+)/(?P<slug>[-\w]+)/$', views.work_detail, name='work_detail'),
 
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

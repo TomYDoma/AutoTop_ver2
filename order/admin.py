@@ -1,6 +1,6 @@
 from django.contrib import admin
 import nested_admin
-from order.models import Order, Status, TypesWork, OrderItem, OrderWork
+from order.models import Order, Status,  OrderItem, OrderWork
 
 
 class ItemInline(nested_admin.NestedTabularInline):
@@ -20,5 +20,4 @@ class ContestantInline(nested_admin.NestedModelAdmin):
 admin.site.register(Order, ContestantInline)
 
 admin.site.register(Status)
-admin.site.register(TypesWork)
 
