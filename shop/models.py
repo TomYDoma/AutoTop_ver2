@@ -1,6 +1,6 @@
-from django.urls import reverse
 from django.db import models
-
+from django.utils.text import slugify
+from django.urls import reverse
 
 class Category(models.Model):
     name = models.CharField(max_length=200, db_index=True)
@@ -17,6 +17,12 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse('shop:product_category',
                        args=[self.slug])
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super(Category, self).save(*args, **kwargs)
+
 
 ####Запчасти
 class Autopart(models.Model):
@@ -49,4 +55,9 @@ class Autopart(models.Model):
     def get_absolute_url(self):
         return reverse('shop:product_detail',
                        args=[self.id, self.slug])
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super(Autopart, self).save(*args, **kwargs)
 

@@ -3,14 +3,26 @@
 <div class="cart">
     {% with total_items=cart|length %}
         {% if cart|length > 0 %}
-            Ваша корзина:
-            <a href="{% url "cart:cart_detail" %}">
-                {{ total_items }} товаров,
+           Вы выбрали:
+                {% if total_items == 1 %}
+                    <a href="{% url "cart:cart_detail" %}">
+                        {{ total_items }}  товар,
+                        на сумму {{ work.get_total_price }}р
+                    </a>
+                {% elif total_items == 2 or total_items == 3 or total_items == 4  %}
+                    <a href="{% url "cart:cart_detail" %}">
+                        {{ total_items }}  товара,
+                        на сумму {{ work.get_total_price }}р
+                    </a>
+                {% else %}
+                    <a href="{% url "cart:cart_detail" %}">
+                        {{ total_items }}  товаров,
+                        на сумму {{ work.get_total_price }}р
+                    </a>
+                {% endif %}
 
-            </a>
-            {{ cart.get_total_price }}р
-        {% else %}
-            Your cart is empty.
+            {% else %}
+                Ваша корзина пуста
         {% endif %}
     {% endwith %}
 </div>

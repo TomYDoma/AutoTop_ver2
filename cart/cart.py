@@ -36,18 +36,14 @@ class Cart(object):
         self.session.modified = True
 
     def remove(self, product):
-        """
-        Удаление товара из корзины.
-        """
+
         product_id = str(product.id)
         if product_id in self.cart:
             del self.cart[product_id]
             self.save()
             
     def __iter__(self):
-        """
-        Перебор элементов в корзине и получение продуктов из базы данных.
-        """
+
         product_ids = self.cart.keys()
         # получение объектов product и добавление их в корзину
         products = Autopart.objects.filter(id__in=product_ids)

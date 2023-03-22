@@ -2,14 +2,28 @@
 {% block content %}
     <div class="cartwork">
         {% with total_items=work|length %}
-            {% if cart|length > 0 %}
-                Your cart:
-                <a href="{% url "cartwork:cartwork_detail" %}">
-                    {{ total_items }} item{{ total_items|pluralize }},
-                    {{ work.get_total_price }}р
-                </a>
+            {% if work|length > 0 %}
+                Вы выбрали:
+
+                {% if total_items == 1 %}
+                    <a href="{% url "cartwork:cartwork_detail" %}">
+                        {{ total_items }}  услугу,
+                        на сумму {{ work.get_total_price }}р
+                    </a>
+                {% elif total_items == 2 or total_items == 3 or total_items == 4  %}
+                    <a href="{% url "cartwork:cartwork_detail" %}">
+                        {{ total_items }}  услуги,
+                        на сумму {{ work.get_total_price }}р
+                    </a>
+                {% else %}
+                    <a href="{% url "cartwork:cartwork_detail" %}">
+                        {{ total_items }}  услуг,
+                        на сумму {{ work.get_total_price }}р
+                    </a>
+                {% endif %}
+
             {% else %}
-                Your cart is empty.
+                Вы еще ничего не выбрали
             {% endif %}
         {% endwith %}
     </div>
@@ -32,7 +46,6 @@
 
 <div class="row align-items-start" >
 {% for work in products %}
-
         <div class="card" style="width: 18rem; height: 20rem">
             <a href="{{ work.get_absolute_url }}">
                 <img src="{{ work.image.url }}" style="height: 8rem">
@@ -42,8 +55,6 @@
                 <p class="product-price">{{ work.price }}р</p>
             </div>
         </div>
-
-
   {% endfor %}
 </div>
 

@@ -64,6 +64,11 @@
                 <a class="nav-link active underline-one" aria-current="page" href="{% url 'work:work_list' %}">Услуги</a>
               </li>
 
+
+             <li class="nav-item " >
+                <a class="nav-link active underline-one" aria-current="page" href="{% url 'order:order_new' %}">Заказ</a>
+              </li>
+
               <!--Вывод имени пользователя-->
               <li class="nav-item" style="right: 0; position: absolute;">
                 {% if user.is_authenticated %}

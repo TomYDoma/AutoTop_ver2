@@ -29,11 +29,11 @@ def order_create(request):
             for item in cart:
                 OrderItem.objects.create(order=order, product=item['product'],
                                          quantity=item['quantity'])
-                # clear the cart
+
             cart.clear()
             for item in cartwork:
-                OrderWork.objects.create(order=order, work=item['product'])
-                # clear the cart
+                OrderWork.objects.create(order=order, work_id=item['id'])
+
             cartwork.clear()
             return render(request, 'order/order_new.html',
                           {'order': order})
