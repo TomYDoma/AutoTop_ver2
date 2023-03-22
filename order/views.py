@@ -27,7 +27,7 @@ def order_create(request):
             instance.ID_Client = request.user
             order = form.save()
             for item in cart:
-                OrderItem.objects.create(order=order, product=item['product'],
+                OrderItem.objects.create(order=order, product_id=item['id'],
                                          quantity=item['quantity'])
 
             cart.clear()

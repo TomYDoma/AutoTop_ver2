@@ -3,7 +3,7 @@
 <div class="product-detail">
         <img src="{{ product.image.url }}" style="height: 20rem">
         <h1>{{ product.name }}</h1>
-        <h2><a href="{{ product.category.get_absolute_url }}">{{ work.category }}</a></h2>
+        <h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>
         <p class="price">{{ product.price }}р</p>
         <form action="{% url "cartwork:cartwork_add" product.id %}" method="post">
             {{ cart_work_form }}

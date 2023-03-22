@@ -1,4 +1,4 @@
-from decimal import Decimal
+
 from django.conf import settings
 from shop.models import Autopart
 
@@ -49,10 +49,15 @@ class Cart(object):
         products = Autopart.objects.filter(id__in=product_ids)
         for product in products:
             self.cart[str(product.id)]['product'] = product
+            self.cart[str(product.id)]['name'] = product.name
+            self.cart[str(product.id)]['product'] = product.name
+            self.cart[str(product.id)]['image'] = product.image
+            self.cart[str(product.id)]['id'] = product.id
 
         for item in self.cart.values():
-            item['price'] = Decimal(item['price'])
+            item['price'] = float(item['price'])
             item['total_price'] = item['price'] * item['quantity']
+            item['id'] = item['id']
             yield item
 
     def __len__(self):
@@ -66,7 +71,7 @@ class Cart(object):
         """
         Подсчет стоимости товаров в корзине.
         """
-        return sum(Decimal(item['price']) * item['quantity'] for item in
+        return sum(float(item['price']) * item['quantity'] for item in
                    self.cart.values())
 
     def clear(self):

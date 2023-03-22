@@ -18,17 +18,15 @@
         {% for item in cart %}
             {% with product=item.product %}
             <tr>
-              <th scope="row">{{forloop.counter}}</th>
+              <th class="cart-text" scope="row">{{forloop.counter}}</th>
               <td>
-                  <a href="{{ product.get_absolute_url }}">
-                      <img src="{{ product.image.url }}" style="height: 10rem">
-                  </a>
+                  <img src="{{ item.image.url }}" style="height: 10rem">
               </td>
-              <td>{{ product.name }}</td>
-              <td>{{ item.quantity }}</td>
-                    <td><a href="{% url "cart:cart_remove" product.id%}">Удалить</a></td>
-                    <td class="num">{{ item.price }}р</td>
-                    <td class="num">{{ item.total_price }}р</td>
+              <td class="cart-text">{{ item.name }}</td>
+              <td class="cart-text">{{ item.quantity }}</td>
+                    <td><a href="{% url "cart:cart_remove" item.id%}" class="cart-text">Удалить</a></td>
+                    <td class="cart-text">{{ item.price }}р</td>
+                    <td class="cart-text">{{ item.total_price }}р</td>
             </tr>
          {% endwith %}
         {% endfor %}
