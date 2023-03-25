@@ -7,6 +7,7 @@ from django.views.generic import ListView, CreateView, DetailView, DeleteView
 import order.models
 import shop
 import work
+from accounts.models import Profile
 from .forms import FeedbackListForm, CommentForm
 from .models import SpecialistAdmin, SpecialistList, mainCart, FeedbackList, Articles, Comment
 
@@ -25,9 +26,11 @@ class ServicesListView(ListView):
 
 class NewsDetailView(DetailView):
     model = Articles
+    imageAuthor = 1
     form_class = CommentForm()
     template_name = 'home/detail_news.html'
     context_object_name = 'article'
+
     def get_context_data(self, *args, **kwargs):
         comm = super(NewsDetailView, self).get_context_data(**kwargs)
         pk = self.kwargs.get('pk')
@@ -39,12 +42,9 @@ def createComment(request, id):
     if request.method == 'POST':
         form = CommentForm(request.POST)
         article = Articles.objects.get(pk=id)
-        print(article)
         if form.is_valid():
             comm = form.save(False)
             comm.author_id = request.user.id
-            #Эта дура не хочет получать id записи, к которой
-            # нужно оставить комент, поэтому тут заглушка
             comm.article_id = article.id
             form.save()
             return redirect('news-detail', id)
@@ -61,6 +61,7 @@ class BlogDeleteView(DeleteView):
     model = Comment
     template_name = 'home/post_delete.html'
     success_url = reverse_lazy('useful')
+
 
 
 def useful(request):

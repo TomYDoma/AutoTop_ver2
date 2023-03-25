@@ -2,28 +2,53 @@
 {% load define_action %}
 {% block content %}
 {% define article.id as action %}
-
+    <img src="{{ article.image.url }}" style="height: 30rem" />
     <h1>{{ article.title }}</h1>
-<p align="left">{{article.full_text|safe}}</p>
-<form  action="{% url 'comment' action %}">
-    <input class="btn btn-dark" type="submit" value="Добавить комментарий" />
-</form>
+    <p
+            align="left"
+            style="margin-left: auto;
+            margin-right: auto;
+            width: 60rem;
+            text-indent: 25px;
+            ">
+        {{article.full_text|safe}}
+    </p>
 
-
-{% for item in comments %}
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">{{ item.author }}</h4>
-                <p class="card-text">{{ item.content }}</p>
-                {% if item.author == user %}
-                    <p><a href="{% url 'post_delete' item.pk %}">Удалить комментарий</a></p>
-                {% elif var2 %}
-                    {{ var2 }}
-                {% endif %}
-
-            </div><!-- Конец текстового контента -->
-        </div><!-- Конец карточки -->
-{% endfor %}
+    <div class="row d-flex justify-content-center" style="border: 0px">
+        <div class="col-md-8 col-lg-6" style="border: 0px">
+            <div class="card shadow-0 border" style="background-color: #f0f2f5; border: 0px">
+                <div class="card-body p-4" style="border: 0px">
+                    <div class="headings d-flex justify-content-between align-items-center mb-3" style="border: 0px">
+                        <h5>Комментарии: ({{ comments.count }})</h5>
+                        <form  action="{% url 'comment' action %}">
+                            <input class="btn btn-dark" type="submit" value="Добавить комментарий" />
+                        </form>
+                    </div>
+                    {% for item in comments %}
+                    <div class="card mb-4" style="border: 0px">
+                        <div class="card-body">
+                            <p>{{ item.content }}</p>
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex flex-row align-items-center">
+                                    <img src="{{ item.author.profile.avatar.url }}" alt="avatar" width="30"  height="30" />
+                                    <p class="small mb-0 ms-2">{{ item.author }}: {{ item.pub_date }}</p>
+                                </div>
+                                <div class="d-flex flex-row align-items-center">
+                                    {% if item.author == user %}
+                                        <form method="POST" action="{% url "post_delete" item.pk%}">
+                                            {% csrf_token %}<input type="submit" value="Удалить" class="btn btn-dark">
+                                        </form>
+                                    {% else %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 

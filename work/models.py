@@ -32,6 +32,7 @@ class Work(models.Model):
     name = models.CharField('Название работы', max_length=50)
     slug = models.SlugField(max_length=200, db_index=True)
     image = models.ImageField(upload_to='work/%Y/%m/%d', blank=True)
+    description = models.TextField(blank=True)
     price = models.DecimalField('Стоимость',max_digits=10, decimal_places=2)
     available = models.BooleanField(default=True)
     execution_Time = models.IntegerField("Срок выполнения")

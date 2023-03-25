@@ -28,7 +28,9 @@ class Order(models.Model):
     end_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.created},  {self.paid}"
+        return f"Заказ от: {self.created}, заказчик: {self.ID_Client.last_name} {self.ID_Client.first_name}"
+
+
 
 
     def total_work(self):
@@ -37,11 +39,15 @@ class Order(models.Model):
             for cart_item in OrderWork.objects.filter(order=self)
         ])
 
+
     def total_autopart(self):
         return ([
             cart_item.return_autopart()
             for cart_item in OrderItem.objects.filter(order=self)
         ])
+
+    def total_autopart_to_string(self):
+        return f'{Order.total_autopart(self)}'
 
     def get_absolute_url(self):
         return reverse('order:order_detail', args=[str(self.id)])
@@ -74,7 +80,7 @@ class OrderItem(models.Model):
         return self.product.price * self.quantity
 
     def return_autopart(self):
-        return self.product
+        return f"{self.product}, количество: {self.quantity}, стоимость: {self.product.price * self.quantity}"
 
     def total(self):
         return self.quantity * self.product.price

@@ -50,7 +50,7 @@ class Autopart(models.Model):
         return self.price
 
     def __str__(self):
-        return f"{self.name}, стоимость: {self.price} Р"
+        return f"{self.name}, цена: {self.price} Р"
 
     def get_absolute_url(self):
         return reverse('shop:product_detail',

@@ -12,6 +12,8 @@ urlpatterns = [
     path('', OrderListView.as_view(), name="order"),
     path('<int:pk>/', OrderDetailView.as_view(), name='order_detail'),
     path('new/', views.order_create, name='order_new'),
+    path('<int:pk>/pdf', views.getpdf, name='pdf')
+
 
 
 

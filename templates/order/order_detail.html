@@ -31,6 +31,7 @@
         </tr>
         </tbody>
     </table>
+    <a href="{% url 'order:pdf' order.id %}">Получение pdf</a>
     <p class="product-price"> Общая стоимость:  {{ order.total_price }}</p>
 
 

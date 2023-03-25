@@ -109,3 +109,20 @@ orders
 {% endblock content %}
 
 
+
+
+<div class="row align-items-start" >
+{% for work in products %}
+        <div class="card" style="width: 18rem; height: 20rem">
+            <a href="{{ work.get_absolute_url }}">
+                <img src="{{ work.image.url }}" style="height: 8rem">
+            </a>
+            <div class="card-body">
+                <a class="cart-text" href="{{ work.get_absolute_url }}">{{ work.name }}</a>
+                <p class="product-price">{{ work.price }}р</p>
+            </div>
+        </div>
+  {% endfor %}
+</div>
+
+

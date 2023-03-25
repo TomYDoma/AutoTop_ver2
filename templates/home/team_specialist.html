@@ -2,30 +2,26 @@
 {% block content %}
 <h1>Команда специалистов</h1>
 
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Имя</th>
-      <th scope="col">Должность</th>
-        <th scope="col">Стаж работы</th>
-      <th scope="col">Фотография</th>
 
-      <th scope="col">О себе</th>
-    </tr>
-  </thead>
+<section class="articles">
+{% for cpec in object_list %}
+  <article>
+    <div class="article-wrapper">
+      <figure>
+        <img src="{{ cpec.image.url}}" alt="" class="img-cpecialist" />
+      </figure>
+      <div class="article-body">
+        <h2>{{ cpec.name }}</h2>
+        <p>
+          {{ cpec.body }}
+        </p>
+        <a href="" class="read-more">
+          {{ cpec.positions}}.  Стаж работы: {{ cpec.WorkExperience}} года
+        </a>
+      </div>
+    </div>
+  </article>
+{% endfor %}
+</section>
 
-  {% for cpec in object_list %}
-  <tbody>
-    <tr>
-      <td>{{forloop.counter}}</td>
-      <td>{{ cpec.name }}</td>
-      <td>{{ cpec.positions}}</td>
-        <td>{{ cpec.WorkExperience}}</td>
-      <td><img src="{{ cpec.image.url}}", style="height: 100px"></td>
-      <td>{{ cpec.body }}</td>
-    </tr>
-  </tbody>
-  {% endfor %}
-  </table>
 {% endblock content %}
