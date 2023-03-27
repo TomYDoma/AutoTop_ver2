@@ -39,7 +39,7 @@ class Work(models.Model):
     warranty = models.IntegerField("Гарантия")
 
     def __str__(self):
-        return f"{self.name}, стоимость: {self.price} Р"
+        return f"{self.name}"
     def return_price(self):
         return self.price
 

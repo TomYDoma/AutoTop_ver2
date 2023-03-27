@@ -51,7 +51,7 @@ class Cart(object):
             self.cart[str(product.id)]['product'] = product
             self.cart[str(product.id)]['name'] = product.name
             self.cart[str(product.id)]['product'] = product.name
-            self.cart[str(product.id)]['image'] = product.image
+
             self.cart[str(product.id)]['id'] = product.id
 
         for item in self.cart.values():

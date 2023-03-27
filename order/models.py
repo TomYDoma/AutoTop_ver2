@@ -28,14 +28,11 @@ class Order(models.Model):
     end_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Заказ от: {self.created}, заказчик: {self.ID_Client.last_name} {self.ID_Client.first_name}"
-
-
-
+        return f"Заказ от: {self.created.strftime('%d.%m.%Y-%H.%M')}, заказчик: {self.ID_Client.last_name} {self.ID_Client.first_name}"
 
     def total_work(self):
         return ([
-            cart_item
+            cart_item.return_work()
             for cart_item in OrderWork.objects.filter(order=self)
         ])
 
@@ -80,7 +77,7 @@ class OrderItem(models.Model):
         return self.product.price * self.quantity
 
     def return_autopart(self):
-        return f"{self.product}, количество: {self.quantity}, стоимость: {self.product.price * self.quantity}"
+        return f"{self.product}, количество: {self.quantity}, стоимость: {self.product.price * self.quantity} рублей"
 
     def total(self):
         return self.quantity * self.product.price
@@ -97,7 +94,7 @@ class OrderWork(models.Model):
 
 
     def return_work(self):
-        return f"{self.product}, Количество: {self.quantity} ШТ, Стоимость: {self.work.price}"
+        return f"{self.work}, стоимость: {self.work.price} рублей"
 
 
 

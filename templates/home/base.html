@@ -7,6 +7,11 @@
    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
     <link rel="icon" href="{% static 'img/minilogo.png' %}" type="image/x-icon">
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
+      <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+
+      {% block href %}
+      {% endblock href %}
   </head>
   <body>
     <header>

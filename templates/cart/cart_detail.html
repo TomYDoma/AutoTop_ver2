@@ -6,7 +6,6 @@
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Фото</th>
               <th scope="col">Наименование</th>
               <th scope="col">Количество</th>
               <th scope="col">Удалить</th>
@@ -19,12 +18,11 @@
             {% with product=item.product %}
             <tr>
               <th class="cart-text" scope="row">{{forloop.counter}}</th>
-              <td>
-                  <img src="{{ item.image.url }}" style="height: 10rem">
-              </td>
               <td class="cart-text">{{ item.name }}</td>
               <td class="cart-text">{{ item.quantity }}</td>
-                    <td><a href="{% url "cart:cart_remove" item.id%}" class="cart-text">Удалить</a></td>
+                    <td>
+                        <button class="btn btn-dark" onclick="window.location.href='{% url "cart:cart_remove" item.id %}'">Удалить</button>
+                    </td>
                     <td class="cart-text">{{ item.price }}р</td>
                     <td class="cart-text">{{ item.total_price }}р</td>
             </tr>

@@ -2,37 +2,33 @@
 {% block content %}
     <h1>Мои машины:</h1>
     <div class="nav-right">
-        <a href="{% url 'car_new' %}">Добавить машину в гараж</a>
+         <button class="btn btn-dark" onclick="window.location.href='{% url 'car_new' %}'">Добавить автомобиль</button>
     </div>
-<div class="row align-items-start" >
- {% for car in object_list %}
-
-    {% if car.author == user %}
-
-         <div class="card" style="width: 18rem; height: 30rem">
-            <div class="box">
-                <a href="{% url 'car_detail' car.pk %}">
-                    <img src="{{car.image.url}}"   alt="..."s>
-                </a>
-            </div>
-            <div class="card-body">
-                <div style="background-color: orange; border-radius: 2px; ">
-                    <p class="card-text" style="font-weight: bold; color:#ffffff; font-size: 14px">{{ car.VIN }}</p>
+    <section class="articles">
+        {% for car in object_list %}
+            <article>
+                <div class="article-wrapper">
+                    <figure>
+                        <img src="{{car.image.url}}" alt="" />
+                    </figure>
+                    <div class="article-body">
+                        <h4>{{ car.Car_Brand}} {{ car.Car_Model }}</h4>
+                        <div style="background-color: orange; border-radius: 2px; ">
+                            <p class="card-text" style="font-weight: bold; color:#ffffff; font-size: 14px">{{ car.VIN }}</p>
+                        </div>
+                        <p>
+                            {{ work.description }}
+                        </p>
+                        <a href="{% url 'car_detail' car.pk %}" class="read-more">Подробнее <span class="sr-only">about this is some title</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                    </div>
                 </div>
-                <h5 class="card-title">{{ car.Car_Brand}} {{ car.Car_Model }}</h5>
-                <h5 class="card-title">{{ car.State_Number }}</h5>
-                <p class="card-text">{{ car.Color }}</p>
-            </div>
-        </div>
-
-
-
-    {% else %}
-
-    {% endif %}
-
-  {% endfor %}
-</div>
+            </article>
+        {% endfor %}
+    </section>
 {% endblock content %}
 
 

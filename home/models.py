@@ -77,7 +77,7 @@ class FeedbackList(models.Model):
     number = models.CharField(max_length=200, default = None)
     date = models.DateTimeField(default=django.utils.timezone.now)
     def __str__(self):
-        return self.name
+        return f"{self.date.strftime('%H.%M -- %d.%m.%Y')} | {self.name}, {self.number}"
 
     class Meta:
         verbose_name = 'Обратная связь'

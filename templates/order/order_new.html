@@ -2,41 +2,69 @@
 <h1>Checkout</h1>
 
 {% block content %}
-
-    <div class="order-info">
-        <h3>Your order</h3>
-        <ul>
-            {% for item in cart %}
-                <li>
-                    {{ item.quantity }}x {{ item.product.name }}
-                    <span>{{ item.price }}р</span>
-                </li>
-            {% endfor %}
-        </ul>
-        <p>Total: {{ cart.get_total_price }}р</p>
-    </div>
-
-
-        <div class="order-info">
-        <h3>Ваши услуги</h3>
-        <ul>
-            {% for item in work %}
-                <li>
-                     {{ item.name }}
-                    <span>{{ item.total_price }}р</span>
-                </li>
-            {% endfor %}
-        </ul>
-        <p>Total: {{ work.get_total_price }}р</p>
-    </div>
-
-    <form action="." method="post" class="order-form">
-        {{ form.as_p }}
-        <p><input type="submit" value="Place order"></p>
-        {% csrf_token %}
-    </form>
-
-
+        <h3>Оформление заказа</h3>
+            <h4>Выбранные товары:</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Наименование</th>
+                          <th scope="col">Количество</th>
+                          <th scope="col">Удалить</th>
+                          <th scope="col">Цена</th>
+                          <th scope="col">Стоимость</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in cart %}
+                            {% with product=item.product %}
+                                <tr>
+                                    <th class="cart-text" scope="row">{{forloop.counter}}</th>
+                                    <td class="cart-text">{{ item.name }}</td>
+                                    <td class="cart-text">{{ item.quantity }}</td>
+                                    <td>
+                                        <button class="btn btn-dark" onclick="window.location.href='{% url "cart:cart_remove" item.id %}'">Удалить</button>
+                                    </td>
+                                    <td class="cart-text">{{ item.price }}р</td>
+                                    <td class="cart-text">{{ item.total_price }}р</td>
+                                </tr>
+                            {% endwith %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+        <p>Всего: {{ cart.get_total_price }}р</p>
+        <h4>Выбранне услуги:</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Наименование</th>
+                    <th scope="col">Удалить</th>
+                    <th scope="col">Стоимость</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in work %}
+                    {% with product=item.product %}
+                        <tr>
+                            <th class="cart-text" scope="row">{{forloop.counter}}</th>
+                            <td class="cart-text">{{ item.name }}</td>
+                            <td>
+                                <button class="btn btn-dark" onclick="window.location.href='{% url "cartwork:cartwork_remove" item.id %}'">Удалить</button>
+                            </td>
+                            <td class="cart-text">{{ item.total_price }}р</td>
+                        </tr>
+                    {% endwith %}
+                {% endfor %}
+            </tbody>
+        </table>
+        <p>Всего: {{ work.get_total_price }}р</p>
+        <h4>Автомобиль:</h4>
+        <form action="." method="post" class="order-form">
+            {{ form.as_p }}
+            <p><input type="submit" value="Place order"></p>
+            {% csrf_token %}
+        </form>
 {% endblock content %}
 
 

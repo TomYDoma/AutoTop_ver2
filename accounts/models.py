@@ -73,7 +73,7 @@ class Car(models.Model):
     State_Number = models.CharField('Номер', max_length=10)
     VIN = models.CharField('VIN', max_length=20)
     Color = models.CharField('Цвет', max_length=50)
-    Relese_Date = models.CharField('Год выпуска', max_length=4)
+    Relese_Date = models.CharField('Год выпуска', max_length=50)
 
     def __str__(self):
         return f"{self.Car_Brand} {self.Car_Model}, VIN: {self.VIN}"

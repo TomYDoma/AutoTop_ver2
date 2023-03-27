@@ -31,8 +31,8 @@
         </tr>
         </tbody>
     </table>
-    <a href="{% url 'order:pdf' order.id %}">Получение pdf</a>
-    <p class="product-price"> Общая стоимость:  {{ order.total_price }}</p>
+    <p class="status-text"> Общая стоимость:  {{ order.total_price }} рублей</p>
+    <button class="btn btn-dark" onclick="window.location.href='{% url 'order:pdf' order.id %}'">Получение pdf</button>
 
 
 {% endblock content %}

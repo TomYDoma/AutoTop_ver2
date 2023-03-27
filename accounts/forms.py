@@ -108,10 +108,10 @@ class UpdateProfileForm(forms.ModelForm):
 class CarForm(forms.ModelForm):
     class Meta:
         model = Car
-        fields = ['Car_Brand', 'Car_Model', 'image', 'PTS', 'State_Number', 'VIN', 'Color']
+        fields = ['Car_Brand', 'Car_Model', 'image', 'mileage', 'PTS', 'State_Number', 'VIN', 'typeCar', 'Color', 'Relese_Date']
 
 
 class CarEditForm(forms.ModelForm):
     class Meta:
         model = Car
-        fields = ['Car_Brand', 'Car_Model', 'image', 'PTS', 'State_Number', 'VIN', 'Color']
+        fields = ['Car_Brand', 'Car_Model', 'image', 'mileage', 'PTS', 'State_Number', 'VIN', 'typeCar', 'Color', 'Relese_Date']

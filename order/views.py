@@ -1,16 +1,12 @@
-from os.path import join
-
-from PIL import Image
-from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.utils import ImageReader
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
-
+from datetime import date
 from cart.cart import Cart
 from cartwork.cartwork import CartWork
 from order.forms import OrderCreateForm
@@ -28,10 +24,9 @@ class OrderDetailView(DetailView):  # новое
 
 
 def getpdf(request, pk):
-
-    print(type(pk))
     order = get_object_or_404(Order, pk=pk)
-    text = order.total_autopart()
+    autopart = order.total_autopart()
+    work = order.total_work()
     car = order.ID_Car.get_car()
     carVin = order.ID_Car.get_vin()
     carPTS = order.ID_Car.get_pts()
@@ -42,19 +37,23 @@ def getpdf(request, pk):
     carMilage = order.ID_Car.get_mileage()
     zagolovok = order.__str__()
 
+    price = str(order.total_price())
+    date_now = date.today()
+
+
     user = request.user
     f_name = user.first_name
     l_name = user.last_name
     m_name = user.profile.middleName
     addres = user.profile.addres
     number_phone = user.profile.numberPhone
-    print(m_name)
+
 
 
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="file.pdf"'
     w, h = A4
-    p = canvas.Canvas(response, pagesize=A4)
+    p = canvas.Canvas(response)
     pdfmetrics.registerFont(TTFont('FreeSans', 'order/FreeSans.ttf'))
     p.setFont("FreeSans", 15)
 
@@ -87,20 +86,26 @@ def getpdf(request, pk):
     p.drawString(300, 640, 'Цвет: {carColor}'.format(carColor=carColor))
     p.drawString(300, 630, 'Год выпуска: {carDate}'.format(carDate=carDate))
 
+    p.drawString(30, 590, 'Заказанные атвозапчасти:')
+    j = 580
+    for i in autopart:
+        p.drawString(30, j, i)
+        j -= 10
+    j -= 30
 
-    j = 10
-    for i in text:
-        p.drawString(20, 600 - j, i)
-        j += 10
+    p.drawString(30, j, 'Работы:')
+    for i in work:
+        j -= 10
+        p.drawString(30, j, i)
 
+    j -= 30
 
+    p.drawString(275, j, 'Дата печати документа: {date_now}'.format(date_now=date_now))
+    j -= 10
+    p.drawString(275, j, 'Итого к оплате:')
+    p.drawString(400, j, "{price}, рублей".format(price=price))
+    p.line(378, j-1, 580, j-1)
 
-    p.drawString(275, 100, 'Итого к оплате:')
-    p.drawString(500, 100, "$1,000.00")
-    p.line(378, 99, 580, 99)
-
-
-    #p.drawString(100, 700, text)
     p.showPage()
     p.save()
     return response

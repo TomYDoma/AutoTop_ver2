@@ -1,28 +1,23 @@
 {% extends 'home/base.html' %}
 {% load static %}
 {% block content %}
-
-
-      <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light" style="position:absolute; top:0px; left:0px;">
+    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light" style="position:absolute; top:0px; left:0px;">
         <div class="col-md-5 p-lg-5 mx-auto my-5" style=" border: none;">
-          <h3 class="display-10 fw-normal">УСЛУГИ AUTOTOP™ </br> CAR SERVICE</h3>
-          <p class="lead fw-normal">Сервисные центры AutoTop™ Car Service осуществляют все виды технического обслуживания и ремонта</p>
+            <h3 class="display-10 fw-normal">УСЛУГИ AUTOTOP™ </br> CAR SERVICE</h3>
+            <p class="lead fw-normal">Сервисные центры AutoTop™ Car Service осуществляют все виды технического обслуживания и ремонта</p>
         </div>
         <div class="product-device shadow-sm d-none d-md-block">
             <img style="height: 32rem" class="autopart" src="{% static 'img/Beetle.png' %}" src="Ошибка">
         </div>
         <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
-      </div>
-
-
+    </div>
     <div class="cart">
-    {% with total_items=work|length %}
-        {% if work|length > 0 %}
+        {% with total_items=work|length %}
+            {% if work|length > 0 %}
                 {% if total_items == 1 %}
                     <div class="d-flex justify-content-between p-2 mb-2" style="background-color: #ffffff;">
                         <a class="cart-text" href="{% url "cartwork:cartwork_detail" %}">Вы выбрали:</a>
-                        <h5 class="cart-text">{{ total_items }} услугу,
-                        на сумму {{  work.get_total_price }}</h5>
+                        <h5 class="cart-text">{{ total_items }} услугу, на сумму {{  work.get_total_price }}</h5>
                     </div>
                 {% elif total_items == 2 or total_items == 3 or total_items == 4  %}
                     <div class="d-flex justify-content-between p-2 mb-2" style="background-color: #ffffff;">
@@ -37,13 +32,11 @@
                         на сумму {{  work.get_total_price }}</h5>
                     </div>
                 {% endif %}
-
             {% else %}
-               <h5 class="cart-text">Ваша корзина пуста</h5>
-        {% endif %}
-    {% endwith %}
-</div>
-
+                <h5 class="cart-text">Ваша корзина пуста</h5>
+            {% endif %}
+        {% endwith %}
+    </div>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="collapse navbar-collapse" id="navbarNav" style="border: 0px">
@@ -60,32 +53,26 @@
       </div>
     </nav>
 
-
-<section class="articles">
-{% for work in products %}
-  <article>
-    <div class="article-wrapper">
-      <figure>
-        <img src="{{ work.image.url }}" alt="" />
-      </figure>
-      <div class="article-body">
-        <h2>{{ work.name }}</h2>
-        <p>
-          {{ work.description }}
-        </p>
-        <a href="{{ work.get_absolute_url }}" class="read-more">
-          Подробнее <span class="sr-only">about this is some title</span>
-          <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-          </svg>
-        </a>
-      </div>
-    </div>
-  </article>
-{% endfor %}
-</section>
-
-
+    <section class="articles">
+        {% for work in products %}
+            <article>
+                <div class="article-wrapper">
+                    <figure>
+                        <img src="{{ work.image.url }}" alt="" />
+                    </figure>
+                    <div class="article-body">
+                        <h2>{{ work.name }}</h2>
+                        <p>{{ work.description }}</p>
+                        <a href="{{ work.get_absolute_url }}" class="read-more">Подробнее <span class="sr-only">about this is some title</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </article>
+        {% endfor %}
+    </section>
 
 {% endblock content %}
 

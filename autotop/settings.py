@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'cart',
     'work',
     'cartwork',
+    'social_django'
     'nested_admin',
     'accounts.apps.AccountsConfig',
 ]

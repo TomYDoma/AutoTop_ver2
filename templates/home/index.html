@@ -1,42 +1,54 @@
 {% extends 'home/base.html' %}
 {% load static %}
+      {% block href %}
+      {% endblock href %}
 {% block content %}
 
-<div class="row align-items-start" style="margin:0 50px;" >
-    {% for el in news %}
-       <div class="card" style="width: 18rem; height: 30rem; border: 0px">
-            <div class="box">
-                    <img src="{{el.image.url}}"   alt="..."s>
-                </a>
-
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">{{ el.name}}</h5>
-                <p class="card-text">{{ el.body }}</p>
-            </div>
+    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light" style="position:absolute; top:0px; left:0px;">
+        <div class="col-md-5 p-lg-5 mx-auto my-5" style=" border: none;">
+            <h3 class="display-10 fw-normal">УСЛУГИ AUTOTOP CAR SERVICE™</h3>
+            <p class="lead fw-normal">Сервисные центры AutoTop Car Service™ осуществляют все виды технического обслуживания и ремонта</p>
         </div>
-
-    {% endfor %}
+        <div class="product-home shadow-sm d-none d-md-block">
+            <img  class="autopart" src="{% static 'img/podnim.png' %}" src="Ошибка" style="height: 20rem">
+        </div>
+        <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
   </div>
 
-<div class="textcols">
-	<div class="textcols-row">
-		<div class="textcols-item">
-<h3>Отремонтируем ваш автомобиль быстро и с гарантией</h3><br>
-      <button style="width: 18rem " class="btn btn-dark" onclick="window.location.href='{% url 'feedback_new' %}'" type="button">Заказать звонок</button><br>
-      <p>Мы перезвоним в течение 30 минут</p>
-		</div>
-		<div class="textcols-item">
-            <img src="{% static 'img/ecpmot.jpg' %}" style="height: 25rem">
-		</div>
-	</div>
-</div>
 
 
+    <section class="articles" >
+    {% for el in news %}
+      <article style="height: 100%">
+        <div style="height: 100%">
+          <figure>
+            <img src="{{ el.image.url }}" alt="" />
+          </figure>
+          <div class="article-body" style="height: 100%">
+            <h2>{{ el.name }}</h2>
+            <a href="{{ work.get_absolute_url }}" class="read-more">
+              {{ el.body }} <span class="sr-only">about this is some title</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor">
 
+              </svg>
+            </a>
+          </div>
+        </div>
+      </article>
+    {% endfor %}
+    </section>
 
-
-
-
+    <div class="textcols">
+        <div class="textcols-row">
+            <div class="textcols-item">
+    <h3>Отремонтируем ваш автомобиль быстро и с гарантией</h3><br>
+          <button style="width: 18rem " class="btn btn-dark" onclick="window.location.href='{% url 'feedback_new' %}'" type="button">Заказать звонок</button><br>
+          <p>Мы перезвоним в течение 30 минут</p>
+            </div>
+            <div class="textcols-item">
+                <img src="{% static 'img/ecpmot.jpg' %}" style="height: 25rem">
+            </div>
+        </div>
+    </div>
 
 {% endblock content %}

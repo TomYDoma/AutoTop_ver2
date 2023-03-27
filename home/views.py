@@ -13,7 +13,7 @@ from .models import SpecialistAdmin, SpecialistList, mainCart, FeedbackList, Art
 
 
 def mainCartt(request):
-    news = mainCart.objects.order_by('-date')[:4]
+    news = mainCart.objects.order_by('-date')[:8]
     return render(request, 'home/index.html', {'news': news})
 
 def contact(request):
@@ -93,6 +93,8 @@ def createFeedback(request):
     if request. method == 'POST':
         form = FeedbackListForm(request.POST)
         if form.is_valid():
+            instance = form.save(commit=False)
+            instance.author = request.user
             form.save()
             return redirect('home')
         else:
