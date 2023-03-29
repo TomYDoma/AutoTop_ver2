@@ -29,34 +29,34 @@ class RegisterForm(UserCreationForm):
     # fields we want to include and customize in our form
     first_name = forms.CharField(max_length=100,
                                  required=True,
-                                 widget=forms.TextInput(attrs={'placeholder': 'First Name',
-                                                               'class': 'form-control',
+                                 widget=forms.TextInput(attrs={'placeholder': 'Имя',
+                                                               'class': 'login-field-icon fui-user',
                                                                }))
     last_name = forms.CharField(max_length=100,
                                 required=True,
-                                widget=forms.TextInput(attrs={'placeholder': 'Last Name',
-                                                              'class': 'form-control',
+                                widget=forms.TextInput(attrs={'placeholder': 'Фамилия',
+                                                              'class': 'login-field-icon fui-user',
                                                               }))
     username = forms.CharField(max_length=100,
                                required=True,
-                               widget=forms.TextInput(attrs={'placeholder': 'Username',
-                                                             'class': 'form-control',
+                               widget=forms.TextInput(attrs={'placeholder': 'Никнейм',
+                                                             'class': 'login-field-icon fui-user',
                                                              }))
     email = forms.EmailField(required=True,
-                             widget=forms.TextInput(attrs={'placeholder': 'Email',
-                                                           'class': 'form-control',
+                             widget=forms.TextInput(attrs={'placeholder': 'Электронная почта',
+                                                           'class': 'login-field-icon fui-user',
                                                            }))
     password1 = forms.CharField(max_length=50,
                                 required=True,
-                                widget=forms.PasswordInput(attrs={'placeholder': 'Password',
-                                                                  'class': 'form-control',
+                                widget=forms.PasswordInput(attrs={'placeholder': 'Пароль',
+                                                                  'class': 'login-field-icon fui-user',
                                                                   'data-toggle': 'password',
                                                                   'id': 'password',
                                                                   }))
     password2 = forms.CharField(max_length=50,
                                 required=True,
-                                widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password',
-                                                                  'class': 'form-control',
+                                widget=forms.PasswordInput(attrs={'placeholder': 'Подтверждение пароля',
+                                                                  'class': 'login-field-icon fui-user',
                                                                   'data-toggle': 'password',
                                                                   'id': 'password',
                                                                   }))
@@ -90,6 +90,16 @@ class UpdateUserForm(forms.ModelForm):
 
 class UpdateProfileForm(forms.ModelForm):
     avatar = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
+    middleName = forms.CharField(max_length=100,
+                                  required=True,
+                                  widget=forms.TextInput(attrs={'placeholder': 'Отчество',
+                                                                'class': 'form-control',
+                                                                }))
+    addres = forms.CharField(max_length=100,
+                                 required=True,
+                                 widget=forms.TextInput(attrs={'placeholder': 'Адрес',
+                                                               'class': 'form-control',
+                                                               }))
     bio = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
     numberPhone = forms.CharField(max_length=100,
                                 required=True,
@@ -99,7 +109,7 @@ class UpdateProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['avatar', 'bio', 'numberPhone']
+        fields = ['avatar', 'middleName', 'addres', 'bio', 'numberPhone']
 
 
 

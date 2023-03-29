@@ -1,3 +1,4 @@
+from django.core.mail import EmailMessage
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
@@ -6,7 +7,9 @@ from reportlab.lib.utils import ImageReader
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
-from datetime import date
+from datetime import date, datetime
+
+from accounts.models import Car
 from cart.cart import Cart
 from cartwork.cartwork import CartWork
 from order.forms import OrderCreateForm
@@ -112,10 +115,14 @@ def getpdf(request, pk):
 
 
 def order_create(request):
+
     cart = Cart(request)
     cartwork = CartWork(request)
+
     if request.method == 'POST':
         form = OrderCreateForm(request.POST)
+        form.fields["ID_Car"].queryset = Car.objects.filter(author=request.user)
+        print(Car.objects.filter(author=request.user))
         if form.is_valid():
             instance = form.save(commit=False)
             instance.status = get_object_or_404(Status, pk=1)
@@ -124,15 +131,24 @@ def order_create(request):
             for item in cart:
                 OrderItem.objects.create(order=order, product_id=item['id'],
                                          quantity=item['quantity'])
-
+            price_autopart = cart.get_total_price()
             cart.clear()
             for item in cartwork:
                 OrderWork.objects.create(order=order, work_id=item['id'])
-
+            price_work = cartwork.get_total_price()
+            sum = price_autopart + price_work
+            m = request.user.email
+            date = datetime.now().strftime('%d.%m.%Y-%H.%M')
             cartwork.clear()
+            email = EmailMessage('Заказ в AUTOTOP™ CAR SERVICE от {date}'.format(date=date), 'Здравствуйте, вы только что оформили заказ на нашем сайте на сумму {price} рублей \n'
+                                                                 'Вы можете посмотреть подробную информацию в личном кабинете \n \n'
+                                                                 'С уважением, AUTOTOP™ CAR SERVICE'.format(price=str(sum)), to=[m])
+            email.send()
             return render(request, 'order/order_new.html',
                           {'order': order})
     else:
         form = OrderCreateForm()
+        form = OrderCreateForm(request.POST)
+        form.fields["ID_Car"].queryset = Car.objects.filter(author=request.user)
     return render(request, 'order/order_new.html',
                   {'cart': cart, 'work': cartwork, 'form': form})

@@ -5,7 +5,7 @@
     <form method="post" enctype='multipart/form-data' >{% csrf_token %}
       {{ form.as_p }}
       <input type="submit" value="Сохранить" />
-        <button onclick="window.location.href='{% url "car" %}'">Отмена</button>
+        <button onclick="window.location.href='{% url "car" %}'" class="btn dark">Отмена</button>
     </form>
 
 {% endblock content %}

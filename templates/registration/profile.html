@@ -63,6 +63,10 @@
                                     <label class="labels">Фамилия</label>
                                     {{ user_form.last_name }}
                                 </div>
+                                 <div class="col-md-8">
+                                    <label class="labels">Отчество</label>
+                                    {{ profile_form.middleName }}
+                                </div>
                                 <div class="col-md-8">
                                     <label class="labels">Email</label>
                                     {{ user_form.email }}
@@ -71,7 +75,10 @@
                                     <label class="labels">Телефон</label>
                                     {{ profile_form.numberPhone }}
                                 </div>
-
+                                 <div class="col-md-8">
+                                    <label class="labels">Адрес</label>
+                                    {{ profile_form.addres }}
+                                </div>
                                 <div class="col-md-8">
                                    <label class="labels">Описание профиля</label>
                                     {{ profile_form.bio }}

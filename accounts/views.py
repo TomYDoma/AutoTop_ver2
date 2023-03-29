@@ -41,7 +41,7 @@ class SignUpView(View):
             form.save()
 
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Account created for {username}')
+            messages.success(request, f'Аккаунт создан:  {username}')
 
             return redirect(to='/')
 
@@ -52,10 +52,10 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
     template_name = 'registration/password_reset.html'
     email_template_name = 'registration/password_reset_email.html'
     subject_template_name = 'registration/password_reset_subject.txt'
-    success_message = "We've emailed you instructions for setting your password, " \
-                      "if an account exists with the email you entered. You should receive them shortly." \
-                      " If you don't receive an email, " \
-                      "please make sure you've entered the address you registered with, and check your spam folder."
+    success_message = "Мы отправили вам по электронной почте инструкции по установке вашего пароля," \
+                      "если существует учетная запись с указанным вами адресом электронной почты. Вы должны получить их в ближайшее время." \
+                      " Если вы не получили электронное письмо, " \
+                      "пожалуйста, убедитесь, что вы ввели адрес, по которому регистрировались, и проверьте папку со спамом."
     success_url = reverse_lazy('home')
 
 @login_required

@@ -5,7 +5,9 @@
          <button class="btn btn-dark" onclick="window.location.href='{% url 'car_new' %}'">Добавить автомобиль</button>
     </div>
     <section class="articles">
+
         {% for car in object_list %}
+            {% if car.author == user %}
             <article>
                 <div class="article-wrapper">
                     <figure>
@@ -27,7 +29,10 @@
                     </div>
                 </div>
             </article>
+                 {% else %}
+     {% endif %}
         {% endfor %}
+
     </section>
 {% endblock content %}
 

@@ -2,28 +2,25 @@
 {% block content %}
 
 <h1>Команда администрации</h1>
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Имя</th>
-      <th scope="col">Должность</th>
-      <th scope="col">Фотография</th>
-      <th scope="col">О себе</th>
-    </tr>
-  </thead>
+<section class="articles">
+{% for cpec in object_list %}
+  <article>
+    <div class="article-wrapper">
+      <figure>
+        <img src="{{ cpec.image.url}}" alt="" class="img-cpecialist" />
+      </figure>
+      <div class="article-body">
+        <h2>{{ cpec.name }}</h2>
+        <p>
+          {{ cpec.body }}
+        </p>
+        <a href="" class="read-more">
 
-  {% for admin in object_list %}
-  <tbody>
-    <tr>
-      <td>{{forloop.counter}}</td>
-      <td>{{ admin.name }}</td>
-      <td>{{ admin.positions}}</td>
-      <td><img src="{{ admin.image.url}}", style="height: 100px"></td>
-      <td>{{ admin.body }}</td>
-    </tr>
-  </tbody>
-  {% endfor %}
-  </table>
+        </a>
+      </div>
+    </div>
+  </article>
+{% endfor %}
+</section>
 
 {% endblock content %}

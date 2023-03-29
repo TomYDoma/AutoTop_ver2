@@ -55,14 +55,17 @@
                   <li><a class="dropdown-item" href="{% url 'useful' %}">Полезные материалы</a></li>
                   <li><a class="dropdown-item" href="#">Что-то планируется</a></li>
                 </ul>
+                {% if user.is_authenticated %}
                 <li class="nav-item " >
                 <a class="nav-link active underline-one" aria-current="page" href="{% url 'feedback_new'%}">Заказать звонок</a>
               </li>
+            {% else %}
+            {% endif %}
 
             <li class="nav-item " >
                 <a class="nav-link active underline-one" aria-current="page" href="{% url 'shop:product_list' %}">Автозапчасти</a>
               </li>
-
+              {% if user.is_authenticated %}
             <li class="nav-item " >
                 <a class="nav-link active underline-one" aria-current="page" href="{% url 'work:work_list' %}">Услуги</a>
               </li>
@@ -71,6 +74,8 @@
              <li class="nav-item " >
                 <a class="nav-link active underline-one" aria-current="page" href="{% url 'order:order_new' %}">Заказ</a>
               </li>
+            {% else %}
+            {% endif %}
 
               <!--Вывод имени пользователя-->
               <li class="nav-item" style="right: 0; position: absolute;">
