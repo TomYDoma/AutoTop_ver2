@@ -1,0 +1,40 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="card">
+        <div class="leftside">
+            <h1 style="color: white">AutoTop</h1>
+        </div>
+        <div class="rightside">
+            <form method="POST" action="{% url 'order:payment_order' order.id %}">
+                {% csrf_token %}
+                <h1>Оплата заказа</h1>
+                <h2>Платежная информация</h2>
+                <p>Имя держателя карты</p>
+                    <input type="text" class="inputbox" name="name_user" required/>
+                <p>Номер карты</p>
+                <input type="number" class="inputbox" name="card_number" id="card_number" required />
+                <p>Тип карты</p>
+                <select class="inputbox" name="card_type" id="card_type" required>
+                    <option value="">--Выберите тип карты--</option>
+                    <option value="Visa">Visa</option>
+                    <option value="RuPay">МИР</option>
+                    <option value="MasterCard">MasterCard</option>
+                </select>
+                <div class="expcvv">
+                    <p class="expcvv_text">Дата</p>
+                    <input type="date" class="inputbox" name="exp_date" id="exp_date" required />
+                    <p class="expcvv_text2">CVV</p>
+                    <input type="password" class="inputbox" name="cvv" id="cvv" required />
+                </div>
+                <p></p>
+                <button type="submit" class="button_pay" onclick="window.location.href='{% url 'order:payment_order' order.id %}'">Оплатить</button>
+            </form>
+        </div>
+    </div>
+
+
+
+{% endblock content %}
+
+

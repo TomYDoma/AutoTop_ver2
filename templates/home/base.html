@@ -59,12 +59,13 @@
                 <li class="nav-item " >
                 <a class="nav-link active underline-one" aria-current="page" href="{% url 'feedback_new'%}">Заказать звонок</a>
               </li>
-            {% else %}
-            {% endif %}
+
 
             <li class="nav-item " >
                 <a class="nav-link active underline-one" aria-current="page" href="{% url 'shop:product_list' %}">Автозапчасти</a>
               </li>
+            {% else %}
+            {% endif %}
               {% if user.is_authenticated %}
             <li class="nav-item " >
                 <a class="nav-link active underline-one" aria-current="page" href="{% url 'work:work_list' %}">Услуги</a>

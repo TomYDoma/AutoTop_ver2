@@ -18,6 +18,9 @@
           <td>
               <img style="height: 10rem" src="{{ order.ID_Car.image.url }}">
               <p>{{ order.ID_Car }}</p>
+              <p>Пробег на момент заказа: {{ order.return_car_milage }}</p>
+              <p>Дата записи: {{ order.client_date }}</p>
+              <p>Время записи: {{ order.client_time }}</p>
           </td>
           <td>
               {% for v in order.total_autopart %}
@@ -32,8 +35,14 @@
         </tbody>
     </table>
     <p class="status-text"> Общая стоимость:  {{ order.total_price }} рублей</p>
-    <button class="btn btn-dark" onclick="window.location.href='{% url 'order:pdf' order.id %}'">Получение pdf</button>
 
+
+     {% if order.paid == False %}
+         <button class="btn btn-dark" onclick="window.location.href='{% url 'order:order_pay' order.id %}'">Оплатить</button>
+     {% else %}
+        <p class="status-text">Заказ оплачен</p>
+     {% endif %}
+    <button class="btn btn-dark" onclick="window.location.href='{% url 'order:pdf' order.id %}'">Получение pdf</button>
 
 {% endblock content %}
 

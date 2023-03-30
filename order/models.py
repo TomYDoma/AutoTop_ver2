@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.urls import reverse
 from django.db import models
 import accounts.models
@@ -18,12 +20,16 @@ class Status(models.Model):
 
 #Заказ-наряд
 class Order(models.Model):
-    paid = models.BooleanField(default=False)
+    paid = models.BooleanField(default=False, verbose_name='Оплачен')
 
-    ID_Car = models.ForeignKey(accounts.models.Car, on_delete=models.CASCADE)
-    ID_Client = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    ID_Car = models.ForeignKey(accounts.models.Car, on_delete=models.CASCADE, verbose_name='Автомобиль')
+    ID_Client = models.ForeignKey('auth.User', on_delete=models.CASCADE, verbose_name='Клиент')
 
-    status = models.ForeignKey(Status, on_delete=models.PROTECT)
+    car_mileage = models.IntegerField(verbose_name='Пробег')
+    client_date = models.DateField('Желаемая дата для клиента', default=datetime.now)
+    client_time = models.TimeField('Желаемое время для клиента', default=datetime.now)
+
+    status = models.ForeignKey(Status, on_delete=models.PROTECT, verbose_name='Статус')
     created = models.DateTimeField(auto_now_add=True)
     end_date = models.DateTimeField(auto_now=True)
 
@@ -45,6 +51,16 @@ class Order(models.Model):
 
     def total_autopart_to_string(self):
         return f'{Order.total_autopart(self)}'
+
+    def return_car_milage(self):
+        return f'{self.car_mileage} километров'
+
+
+    def return_paid(self):
+        if self.paid == True:
+            return "Оплачено"
+        else:
+            return "Не оплачено"
 
     def get_absolute_url(self):
         return reverse('order:order_detail', args=[str(self.id)])
