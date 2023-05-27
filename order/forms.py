@@ -29,7 +29,7 @@ class OrderCreateForm(forms.ModelForm):
                                'style': 'width: 20rem'
                            }))
 
-    client_time = forms.TimeField(label='Желаемая дата записи', required=True,
+    client_time = forms.TimeField(label='Желаемое время записи', required=True,
                                   widget=MyTimeInput({
                                       'class': 'inputbox',
 

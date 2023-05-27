@@ -94,7 +94,11 @@ def createFeedback(request):
         form = FeedbackListForm(request.POST)
         if form.is_valid():
             instance = form.save(commit=False)
-            instance.author = request.user
+            print('CERF', request.user)
+            if str(request.user) == 'AnonymousUser':
+                instance.author_id = 1
+            else:
+                instance.author = request.user
             form.save()
             return redirect('home')
         else:

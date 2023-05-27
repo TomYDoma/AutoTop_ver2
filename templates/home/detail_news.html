@@ -1,5 +1,89 @@
 {% extends 'home/base.html' %}
 {% load define_action %}
+{% block style %}
+    <style>
+body {
+    background-color: #f7f6f6
+}
+
+.card {
+
+    border: none;
+    box-shadow: 5px 6px 6px 2px #e9ecef;
+    border-radius: 4px;
+}
+
+
+.dots{
+
+    height: 4px;
+  width: 4px;
+  margin-bottom: 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.badge{
+
+        padding: 7px;
+        padding-right: 9px;
+    padding-left: 16px;
+    box-shadow: 5px 6px 6px 2px #e9ecef;
+}
+
+.user-img{
+
+    margin-top: 4px;
+}
+
+.check-icon{
+
+    font-size: 17px;
+    color: #c3bfbf;
+    top: 1px;
+    position: relative;
+    margin-left: 3px;
+}
+
+.form-check-input{
+    margin-top: 6px;
+    margin-left: -24px !important;
+    cursor: pointer;
+}
+
+
+.form-check-input:focus{
+    box-shadow: none;
+}
+
+
+.icons i{
+
+    margin-left: 8px;
+}
+.reply{
+
+    margin-left: 12px;
+}
+
+.reply small{
+
+    color: #b7b4b4;
+
+}
+
+
+.reply small:hover{
+
+    color: green;
+    cursor: pointer;
+
+}
+    </style>
+{% endblock style %}
+
+
 {% block content %}
 {% define article.id as action %}
     <img src="{{ article.image.url }}" style="height: 30rem" />
@@ -13,15 +97,20 @@
             ">
         {{article.full_text|safe}}
     </p>
-    <div class="row d-flex justify-content-center" style="border: 0px">
+    <div class="" style="border: 0px">
         <div class="col-md-8 col-lg-6" style="border: 0px">
             <div class="card shadow-0 border" style="background-color: #f0f2f5; border: 0px; height: 10rem; width: 70rem">
                 <div class="card-body p-4" style="border: 0px">
                     <div class="headings d-flex justify-content-between align-items-center mb-3" style="border: 0px">
                         <h5>Комментарии: ({{ comments.count }})</h5>
-                        <form  action="{% url 'comment' action %}">
-                            <input class="btn btn-dark" type="submit" value="Добавить комментарий" />
-                        </form>
+                        {% if user.is_authenticated %}
+                            <form  action="{% url 'comment' action %}">
+                                <input class="btn btn-dark" type="submit" value="Добавить комментарий" />
+                            </form>
+                        {% else %}
+                            <h8>Необходимо зарегестрироваться, <br>
+                            чтобы оставлять комментарии</h8>
+                        {% endif %}
                     </div>
                     {% for item in comments %}
                     <div class="card mb-4" style="border: 0px">

@@ -12,7 +12,7 @@ from django.urls import reverse
 #Дополнение к профилю Django
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
+    avatar = models.ImageField(default='default.png', upload_to='profile_images/')
     numberPhone = models.CharField(default='89999999999', max_length=12)
     middleName = models.CharField(default='Отчество', max_length=40)
     addres = models.CharField(default='Адрес', max_length=200)
@@ -67,7 +67,7 @@ class Car(models.Model):
     Car_Brand = models.CharField('Марка', max_length=50)
     Car_Model = models.CharField('Модель', max_length=50)
     typeCar = models.ForeignKey(TypeCar, related_name='car', null=True, on_delete=models.SET_NULL)
-    image = models.ImageField(default='defaultCar.jpg', upload_to='images')
+    image = models.ImageField(default='defaultCar.jpg', upload_to='profile_images')
     PTS = models.CharField('ПТС', max_length=50)
     mileage = models.CharField('Пробег', max_length=10)
     State_Number = models.CharField('Номер', max_length=10)

@@ -12,11 +12,14 @@
                    {{ product.description }}
                 </p>
                 <p class="cart-text">~{{ product.price }}р</p>
-                <form action="{% url "cartwork:cartwork_add" product.id %}" method="post">
-                    {{ cart_work_form }}
-                    {% csrf_token %}
-                    <input type="submit" value="Add to cart">
-                </form>
+                {% if user.is_authenticated %}
+                    <form action="{% url "cartwork:cartwork_add" product.id %}" method="post">
+                        {{ cart_work_form }}
+                        {% csrf_token %}
+                        <input type="submit" value="Add to cart">
+                    </form>
+                {% else %}
+                {% endif %}
             </div>
         </div>
     </div>
